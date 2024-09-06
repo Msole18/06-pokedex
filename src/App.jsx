@@ -1,13 +1,13 @@
-import './App.css';
-import pokeLogo from './assets/pokemon-logo.svg';
+import './App.module.css';
 import { useState, useEffect } from 'react';
+import { Pokemons } from './components/Pokemons';
+import { Header } from './components/Header';
 
-const POKEMON_ENDPOINT = `https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20`;
+const POKEMON_ENDPOINT = `https://pokeapi.co/api/v2/pokemon/?offset=0&limit=12`;
 // const SEARCHED_POKEMON_ENDPOINT = `https://pokeapi.co/api/v2/pokemon/${searchedPokemon}`;
 
 function App() {
-  const [pokemons, setPokemons] = useState('');
-    
+  const [initialPokemons, setInitialPokemons] = useState([]);
 
   useEffect(() => {
     fetch(POKEMON_ENDPOINT)
@@ -19,34 +19,21 @@ function App() {
             .then((res) => res.json())
             .then((response) => {
               // Here we were tha invidivual object of any pokemon in the previus fetch
-              console.log('responde: ', response);
-              const  url  = response;
-              setPokemons(url);
+              setInitialPokemons(prevState => { 
+                return [...prevState, response]; 
+              });
             });
         });
       });
   }, []);
 
+
   return (
     <div className='page'>
-      <header>
-        <img
-          src={pokeLogo}
-          alt='pokemon logo'
-        />
-        <form className='form'>
-          <input
-            type='text'
-            placeholder='Pikachu, 18, Charizar...'
-          />
-          <button type='submit'>Search</button>
-        </form>
-      </header>
+      <Header />
 
       <main>
-        
-          <h1>POKEDEX HERE</h1>
-        
+        <Pokemons pokemons={initialPokemons} />
       </main>
     </div>
   );

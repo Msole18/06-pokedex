@@ -1,0 +1,41 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+main {
+ display: flex;
+  justify-content: center;
+  width: 100%;
+  background-color: blue;
+}
+
+.page {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-top: 1rem;
+  width: 100%;
+}
+
+main {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(
+      200px,
+      1fr
+    )
+  );
+  gap: 1rem;
+}

@@ -1,0 +1,19 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content:space-around;
+  align-items: center;
+  width: 100%;
+  max-width: 800px;
+  height: 140px;
+}
+
+.logo {
+  height: 100px;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
