@@ -1,32 +1,40 @@
 import css from './Pokemons.module.css';
+import cssCard from './Card.module.css';
 import { Card } from './Card';
-import {PokemonTypes} from './PokemonTypes'
+import { PokemonTypes } from './PokemonTypes';
 
 function ListOfPokemons({ pokemons }) {
   return (
-    <ul className={css.pokemons}>
+    <ul className={css.pokemons_list}>
       {pokemons.map((pokemon) => (
         <li key={pokemon.id}>
-          <Card>
-            <div>
-              <img
-                src={pokemon.sprites.other.dream_world.front_default}
-                alt={pokemon.name}
-              />
-              <div>
-                <span>{`#${pokemon.id}`}</span>
+          <Card className={cssCard.card}>
+            <section className={css.pokemons_container}>
+              <div className={css.pokemon_id_container}>
+                <p>{`#${pokemon.id}`}</p>
               </div>
-              <h2>{pokemon.name}</h2>
-            </div>
 
-            <div className={css.types}>
+              <div className={css.pokemon_image_container}>
+                <img
+                  className={css.pokemon_image}
+                  src={pokemon.sprites.other.dream_world.front_default}
+                  alt={`a picture of ${pokemon.name}`}
+                />
+              </div>
+
+              <div className={css.pokemon_name_container}>
+                <p>{pokemon.name}</p>
+              </div>
+            </section>
+
+            <section className={css.types_container}>
               {pokemon.types.map((types) => (
                 <PokemonTypes
                   key={types.type.name}
                   type={types.type.name}
                 />
               ))}
-            </div>
+            </section>
           </Card>
         </li>
       ))}
