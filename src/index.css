@@ -26,6 +26,8 @@
   --select-arrow: url("data:image/svg+xml;charset=utf-8,%3C?xml version='1.0' encoding='utf-8'?%3E %3Csvg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' height='62.5' width='116.9' fill='%23161f27'%3E %3Cpath d='M115.3,1.6 C113.7,0 111.1,0 109.5,1.6 L58.5,52.7 L7.4,1.6 C5.8,0 3.2,0 1.6,1.6 C0,3.2 0,5.8 1.6,7.4 L55.5,61.3 C56.3,62.1 57.3,62.5 58.4,62.5 C59.4,62.5 60.5,62.1 61.3,61.3 L115.2,7.4 C116.9,5.8 116.9,3.2 115.3,1.6Z'/%3E %3C/svg%3E");
 }
 
+
+
 html {
   scrollbar-color: rgb(170, 170, 170) #fff;
   scrollbar-color: var(--scrollbar-thumb) var(--background-body);
@@ -35,15 +37,14 @@ html {
 body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
   line-height: 1.4;
-  max-width: 800px;
-  margin: 20px auto;
-  padding: 0 10px;
+  width: 100%;
   word-wrap: break-word;
   color: #363636;
   color: var(--text-main);
   background: #fff;
   background: var(--background-body);
   text-rendering: optimizeLegibility;
+  background-color: #efefef; /*lo cambie yo */
 }
 
 button {
@@ -74,6 +75,7 @@ input {
     color var(--animation-duration) linear,
     box-shadow var(--animation-duration) linear,
     transform var(--animation-duration) ease;
+    
 }
 
 textarea {
@@ -229,6 +231,7 @@ input[type='radio'] {
 input,
 select {
   display: block;
+  
 }
 
 [type='checkbox'],
@@ -239,8 +242,8 @@ select {
 input {
   color: #1d1d1d;
   color: var(--form-text);
-  background-color: #efefef;
-  background-color: var(--background);
+  background-color: #fff; /*lo modifique*/
+  /* background-color: var(--background); */
   font-family: inherit;
   font-size: inherit;
   margin-right: 6px;
@@ -298,7 +301,7 @@ select {
 
 button {
   background-color: #d0cfcf;
-  background-color: var(--button-base);
+  /* background-color: var(--button-base); */
   padding-right: 30px;
   padding-left: 30px;
 }
@@ -883,4 +886,11 @@ body > footer {
     color: #00f;
     text-decoration: underline;
   }
+}
+
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
 }
