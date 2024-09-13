@@ -1,12 +1,13 @@
-import css from './PokemonCard.module.css'
-import cssCard  from './Card.module.css';
-import { Card } from './Card';
+import css from './PokemonCard.module.css';
+import cssCard  from './UI/Card.module.css';
+import { Card } from './UI/Card';
 import { PokemonTypes } from './PokemonTypes';
 
 
 export function PokemonCard (pokemon) {
-
-    console.log('PokemonCard: ', pokemon.pokemon);
+  const imageSrc = pokemon.pokemon.defaultImage
+    ? pokemon.pokemon.defaultImage
+    : pokemon.pokemon.secondaryImage;
 
   return (
     <Card className={cssCard.card}>
@@ -18,7 +19,7 @@ export function PokemonCard (pokemon) {
         <div className={css.pokemon_image_container}>
           <img
             className={css.pokemon_image}
-            src={pokemon.pokemon.image}
+            src={imageSrc}
             alt={`a picture of ${pokemon.pokemon.name}`}
           />
         </div>

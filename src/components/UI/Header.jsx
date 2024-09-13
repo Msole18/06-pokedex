@@ -1,12 +1,11 @@
-import pokeLogo from '../assets/pokemon-logo.svg'
-import css from './Header.module.css'
+import pokeLogo from '../../assets/pokemon-logo.svg';
+import { Button } from './Button';
+import css from './Header.module.css';
 
 export function Header() {
-
   const handleSubmit = (event) => {
     event.preventDefault();
-    
-  }
+  };
   return (
     <header className={css.header}>
       <img
@@ -22,11 +21,9 @@ export function Header() {
           type='text'
           placeholder='Pikachu, 18, Charizar...'
         />
-        <button
-          type='submit'
-        >
-          Search
-        </button>
+        {/* <button type='submit'>Search</button> */}
+        <Button type='search' />
+        <Button type='filter' />
       </form>
     </header>
   );

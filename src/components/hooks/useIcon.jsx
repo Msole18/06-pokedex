@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
-import css from './Icon.module.css'
 
-export default function Icon ({ type }) {
+export function useIcon({type}) {
   // Importar todos los archivos SVG de la carpeta `icons`
   const svgIcons = import.meta.glob('/src/assets/icons/*.svg');
 
@@ -24,13 +23,5 @@ export default function Icon ({ type }) {
     loadIcon();
   }, [type]);
 
-  return (
-    <div className={css.icon_container}>
-      <img
-        src={icon}
-        alt={type}
-      />
-    </div>
-  );
-};
-
+  return { icon }
+}

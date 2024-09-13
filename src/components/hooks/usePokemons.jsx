@@ -1,13 +1,13 @@
-import { useState, useEffect } from "react";
-const POKEMON_ENDPOINT = `https://pokeapi.co/api/v2/pokemon/?offset=0&limit=12`;
-// const SEARCHED_POKEMON_ENDPOINT = `https://pokeapi.co/api/v2/pokemon/${searchedPokemon}`;
+import { useState } from 'react';
+const POKEMON_ENDPOINT = `https://pokeapi.co/api/v2/pokemon`;
+const SEARCHED_POKEMON_ENDPOINT = `https://pokeapi.co/api/v2/pokemon/`;
 
-export function usePokemons () {
+export const usePokemons = () => {
   const [responsePokemons, setResponsePokemons] = useState([]);
+  const [offset, setOffset] = useState(0);
 
- 
-  useEffect(() => {
-    fetch(POKEMON_ENDPOINT)
+  const getAllPokemons = (limit=50) => {
+    fetch(`${POKEMON_ENDPOINT}?limit=${limit}&offset=${offset}`)
       .then((res) => res.json())
       .then((data) => {
         //Here we recive an object that has an array inside with the name and de url of the first pokemons
@@ -22,22 +22,27 @@ export function usePokemons () {
             });
         });
       });
-  }, []);
-  
-  const mappedPokemons = responsePokemons?.map((pokemon) => ({
-    id: pokemon.id,
-    name: pokemon.name,
-    image: pokemon.sprites.other.dream_world.front_default,
-    type: pokemon.types,
-  }));
+  };
 
-  const getPokemons = () => {
-    if (search) {
-      setResponsePokemons(responsePokemons);
-    } else {
-      console.log('pelando bola')
-    }
+  const getSearchedPokemons = ({ search }) => {
+    fetch(`${SEARCHED_POKEMON_ENDPOINT}${search}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setResponsePokemons((prevState) => {
+          return [...prevState,data];
+        });
+      });
+  };
 
-  }
-  return {pokemons: mappedPokemons}
-}
+  const mappedPokemons = responsePokemons
+    ?.map((pokemon) => ({
+      id: pokemon.id,
+      name: pokemon.name,
+      defaultImage: pokemon.sprites.other.dream_world.front_default,
+      secondaryImage: pokemon.sprites.other['official-artwork'].front_default,
+      type: pokemon.types,
+    }))
+    .sort((a, b) => a.id - b.id);
+
+  return { pokemons: mappedPokemons, getAllPokemons, getSearchedPokemons };
+};

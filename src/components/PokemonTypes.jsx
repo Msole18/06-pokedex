@@ -1,4 +1,4 @@
-import Icon from './Icon';
+import {Icon} from './UI/Icon';
 import css from './PokemonTypes.module.css';
 
 const colorType = {
@@ -16,7 +16,7 @@ const colorType = {
   ice: '#3DCEF3',
   normal: '#9FA19F',
   poison: '#9141CB',
-  phychic: '#EF4179',
+  psychic: '#EF4179',
   rock: '#AFA981',
   steel: '#60A1B8',
   water: '#2980EF',

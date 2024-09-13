@@ -6,8 +6,7 @@ function ListOfPokemons({ pokemons }) {
     <ul className={css.pokemons_list}>
       {pokemons.map((pokemon) => (
         <li key={pokemon.id}>
-          {console.log('Pokemon: ',pokemon)}
-          <PokemonCard pokemon={ pokemon } />
+          <PokemonCard pokemon={pokemon} />
         </li>
       ))}
     </ul>
@@ -20,7 +19,7 @@ function NoPokemonsResults() {
 
 export function Pokemons({ pokemons }) {
   const hasPokemons = pokemons?.length > 0;
-  console.log('pokemons: ', pokemons);
+ 
   return (
     <main>
       {hasPokemons ? (

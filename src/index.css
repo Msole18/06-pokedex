@@ -45,6 +45,8 @@ body {
   background: var(--background-body);
   text-rendering: optimizeLegibility;
   background-color: #efefef; /*lo cambie yo */
+  background: rgb(213,213,221);
+  background: linear-gradient(90deg, rgba(213,213,221,1) 0%, rgba(251,249,249,1) 51%, rgba(213,213,221,1) 100%);
 }
 
 button {
