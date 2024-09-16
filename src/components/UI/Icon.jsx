@@ -1,7 +1,7 @@
-import classes from './Icon.module.css'
-import { useIcon } from '../hooks/useIcon';
+import classes from './Icon.module.css';
+import { useIcon } from '../../hooks/useIcon';
 
-export function Icon ({ type }) {  
+export function Icon({ type }) {
   const { icon } = useIcon({ type });
 
   return (
@@ -12,5 +12,4 @@ export function Icon ({ type }) {
       />
     </div>
   );
-};
-
+}

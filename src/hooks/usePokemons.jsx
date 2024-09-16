@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 const POKEMON_ENDPOINT = `https://pokeapi.co/api/v2/pokemon`;
 const SEARCHED_POKEMON_ENDPOINT = `https://pokeapi.co/api/v2/pokemon/`;
 
@@ -6,7 +6,8 @@ export const usePokemons = () => {
   const [responsePokemons, setResponsePokemons] = useState([]);
   const [offset, setOffset] = useState(0);
 
-  const getAllPokemons = (limit=50) => {
+  const getAllPokemons = (limit = 50) => {
+    setResponsePokemons([])
     fetch(`${POKEMON_ENDPOINT}?limit=${limit}&offset=${offset}`)
       .then((res) => res.json())
       .then((data) => {
@@ -19,20 +20,46 @@ export const usePokemons = () => {
               setResponsePokemons((prevState) => {
                 return [...prevState, response];
               });
+            })
+            .catch((error) => {
+              console.error('Error in fetching pokemons:', error);
+              return { pokemons: [] };
             });
         });
       });
   };
 
-  const getSearchedPokemons = ({ search }) => {
+  const getSearchedPokemons = ({search}) => {
+    console.log('search: ', search)
+    if (search === '') return null;
     fetch(`${SEARCHED_POKEMON_ENDPOINT}${search}`)
       .then((res) => res.json())
       .then((data) => {
-        setResponsePokemons((prevState) => {
-          return [...prevState,data];
-        });
+        // setResponsePokemons((prevState) => {
+        //   return [...prevState,data];
+        // });
+        setResponsePokemons([data]);
+      })
+      .catch((error) => {
+        console.error('Error in fetching pokemons:', error);
+        return { pokemons: [] };
       });
   };
+
+  // const getPokemons = useCallback(async (search) => {
+  //   if (search === previousSearch.current) return;
+  //   try {
+  //     setLoading(true);
+  //     setError(null);
+  //     previousSearch.current = search;
+  //     const newPokemons = await searchPokemon( search );
+  //     setPokemons(newPokemons);
+  //   } catch (e) {
+  //     setError(e.message);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // }, []);
 
   const mappedPokemons = responsePokemons
     ?.map((pokemon) => ({

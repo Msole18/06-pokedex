@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* position: relative; */
+  margin-bottom: 20px;
+}
+
+.frame, .filters_container {
+  width: auto;
+  background-color: #000000;
+
+}
+.frame{
+  height: 50px;
+}
+
+.filters_container {
+  display:flex;
+  height: 300px;
+}
+
+
+
+.filters_button {
+
+}

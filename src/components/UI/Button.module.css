@@ -1,49 +1,39 @@
 .container {
-  transition:
-    background-color 0.1s linear,
-    border-color 0.1s linear,
-    color 0.1s linear,
-    box-shadow 0.1s linear,
-    transform 0.1s ease;
-  transition:
-    background-color var(--animation-duration) linear,
-    border-color var(--animation-duration) linear,
-    color var(--animation-duration) linear,
-    box-shadow var(--animation-duration) linear,
-    transform var(--animation-duration) ease;
-}
-.container {
+  transition: background-color var(--animation-duration) linear,
+              border-color var(--animation-duration) linear,
+              color var(--animation-duration) linear,
+              box-shadow var(--animation-duration) linear,
+              transform var(--animation-duration) ease;
   display:flex;
   justify-content: space-around;
   align-items: center;
   align-content: center;
-  color: #1d1d1d;
+  /* color: #1d1d1d; */
   color: var(--form-text);
   background-color: #d0cfcf;
+  /* background-color: #FFCB05;
+  border: solid 7px #316BB3; */
   font-family: inherit;
   font-size: inherit;
   text-transform: capitalize;
-  margin-right: 6px;
-  margin-bottom: 6px;
-  padding: 10px;
-  padding-right: 20px;
-  padding-left: 20px;
+  margin: auto;
+  padding: 9px 20px;
   gap:5px;
   border: none;
   border-radius: 6px;
   outline: none;
   cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+
 }
 
 .container:hover {
-  background: #9b9b9b;
-  background: var(--button-hover);
+  background-color: var(--button-hover, #d0cfcf);
 }
 
 
 .container:focus {
-  box-shadow: 0 0 0 2px #0096bfab;
-  box-shadow: 0 0 0 2px var(--focus);
+  box-shadow: 0 0 0 2px var(--focus, #0096bfab);
 }
 
 .container:disabled {

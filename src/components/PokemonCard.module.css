@@ -1,14 +1,15 @@
-.pokemons_container {
+.pokemons_container { 
   position: relative; 
-  overflow: hidden;
-  
+  overflow: hidden;  
 }
 
 .pokemon_image_container {
   display: flex;
   justify-content: center;
   align-items: center;
+  align-content: center;
   background-color: #efefef;
+  
 }
 
 .pokemon_image {
@@ -17,40 +18,33 @@
   aspect-ratio: 16/25;
 }
 
-.pokemon_id_container {
-  display: flex;
-  align-items: center;
-  position: absolute;
-  overflow: hidden;
-  top: 0px;
-  left: 0px;
-  width: auto;
-  max-height: 30px;
-  padding: 5px;
-  font-size: 18px;
-  color: #000;
-  font-weight: 500;
-  background-color: #fff;
-  border-radius: 0 0 5px 0; 
-}
-
+.pokemon_id_container,
 .pokemon_name_container {
   display: flex;
   align-items: center;
   position: absolute;
   overflow: hidden;
-  bottom: 0px;
-  right: 0px;
   width: auto;
-  max-height: 20px; 
+  max-height: 30px;
   padding: 8px;
   font-size: 18px;
   color: #000;
-  text-transform: capitalize;
-  text-align: center;
   font-weight: 500;
-  background-color: #fff; 
+  background-color: #fff;
+  box-sizing: border-box;
+}
+
+.pokemon_id_container {
+  top: 0px;
+  left: 0px;
+  border-radius: 0 0 5px 0; 
+}
+
+.pokemon_name_container {
+  bottom: 0px;
+  right: 0px;
   border-radius: 5px 0 0 0;
+  text-transform: capitalize;
 }
 
 .types_container {
@@ -61,3 +55,6 @@
   gap: 5px;
   
 }
+
+
+

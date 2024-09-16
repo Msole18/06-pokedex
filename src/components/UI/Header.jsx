@@ -1,30 +1,56 @@
 import pokeLogo from '../../assets/pokemon-logo.svg';
+import classes from './Header.module.css';
 import { Button } from './Button';
-import css from './Header.module.css';
+import { PokemonsFilters } from '../PokemonsFilters';
+import { PokemonsContext } from '../../context/PokemonsContext';
+import { useContext } from 'react';
 
 export function Header() {
+  
+  const { search, setSearch, getSearchedPokemons, error } = useContext(PokemonsContext);
+
   const handleSubmit = (event) => {
     event.preventDefault();
+    getSearchedPokemons({search});
   };
+
+  const handleChange = (event) => {
+    const newSearch = event.target.value;
+    setSearch(newSearch); 
+    getSearchedPokemons({search: newSearch});
+  };
+
   return (
-    <header className={css.header}>
-      <img
-        className={css.logo}
-        src={pokeLogo}
-        alt='pokemon logo'
-      />
-      <form
-        onSubmit={handleSubmit}
-        className='form'
-      >
-        <input
-          type='text'
-          placeholder='Pikachu, 18, Charizar...'
+    <>
+      <header className={classes.header}>
+        <img
+          className={classes.logo}
+          src={pokeLogo}
+          alt='pokemon logo'
         />
-        {/* <button type='submit'>Search</button> */}
-        <Button type='search' />
-        <Button type='filter' />
-      </form>
-    </header>
+        <form
+          className={classes.form}
+          onSubmit={handleSubmit}
+        >
+          <input
+            style={{
+              border: '1px solid transparent',
+              borderColor: error ? 'red' : 'transparent',
+            }}
+            className={classes.input}
+            type='text'
+            placeholder='Pikachu, 18, Charizar...'
+            value={search}
+            onChange={handleChange}
+          />
+          <Button
+            name='Search'
+            icon='search'
+            onClick={handleSubmit}
+          />
+        </form>
+      </header>
+      <PokemonsFilters />
+    </>
   );
 }

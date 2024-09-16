@@ -1,5 +1,5 @@
 import {Icon} from './UI/Icon';
-import css from './PokemonTypes.module.css';
+import classes from './PokemonTypes.module.css';
 
 const colorType = {
   bug: '#91A119',
@@ -26,7 +26,7 @@ export function PokemonTypes({ type }) {
   return (
     <div
       style={{ backgroundColor: colorType[type] }}
-      className={css.container}
+      className={classes.container}
     >
       <Icon type={type} />
       <p>{type}</p>

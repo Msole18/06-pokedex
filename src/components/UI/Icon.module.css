@@ -1,17 +1,16 @@
 .icon_container {
   width: 20px;
   height: 20px;
-  border-radius: 50%; /* Hace el contenedor circular */
+  border-radius: 50%; 
   display: flex;
-  justify-content: center; /* Centra el contenido horizontalmente */
-  align-items: center; /* Centra el contenido verticalmente */
-  overflow: hidden; /* Asegura que el ícono no se salga del contenedor */
-  /* background-color: #333; Color de fondo opcional */
-  border: 1px solid #ccc; /* Borde opcional */
+  justify-content: center; 
+  align-items: center; 
+  overflow: hidden;
+  border: 1px solid transparent; /* Borde opcional */
   
 }
 
 .icon_container img {
-  width: 90%; /* Ajusta el tamaño del ícono dentro del contenedor */
-  height: auto; /* Mantiene la proporción del ícono */
+  width: 90%; 
+  height: auto; 
 }
