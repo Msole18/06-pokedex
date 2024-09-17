@@ -12,19 +12,31 @@ export function PokemonsFilters() {
 
   return (
     <div className={classes.container}>
-      <div className={classes.frame}></div>
-      {filter ? (
+      {/* <div className={classes.frame}></div> */}
+      {/* {filter ? (
         <section className={classes.filters_container}>
           <p>filtros pokemons</p>
         </section>
-      ) : null}
-        <Button
-          className={classes.filters_button}
-          onClick={handleFiltersClick}
-          name='Filters'
-          icon='filter'
-        />
-      
+      ) : null} */}
+
+      {filter ? (
+        <section
+          style={{ height: '250px' }}
+          className={classes.search_container}
+        >
+          <div className={classes.filters_container}>
+            <p>filtros pokemons</p>
+          </div>
+        </section>
+      ) : (
+        <section className={classes.search_container}></section>
+      )}
+      <Button
+        className={classes.button_container}
+        onClick={handleFiltersClick}
+        name='Advanced Search'
+        icon={filter ? 'expand_up' : 'expand_down'}
+      />
     </div>
   );
 }
