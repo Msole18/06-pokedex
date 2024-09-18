@@ -1,31 +1,52 @@
 import classes from './PokemonsFilters.module.css'
+import { PokemonTypes } from './PokemonTypes';
 import { Button } from './UI/Button';
-import { useState } from 'react';
+import { Icon } from './UI/Icon';
+import { PokemonsContext } from '../context/PokemonsContext';
+import { useContext, useEffect, useState } from 'react';
 
 export function PokemonsFilters() {
+  const { pokemons } = useContext(PokemonsContext);
   const [filter, setFilter]= useState(false);
 
-  const handleFiltersClick = () => {
+  const uniqueTypes = [
+    ...new Set(
+      pokemons?.flatMap((pokemon) =>
+        pokemon.type.map((type) => type.type.name)
+      ) || []
+    ),
+  ];
+
+  const handleClick = () => {
     const newFilter = !filter;
     setFilter(newFilter);
   };
+  
+  const handleTypeClick = (event) => {
+    console.log(event.target.name)
+  };
+  
 
   return (
     <div className={classes.container}>
-      {/* <div className={classes.frame}></div> */}
-      {/* {filter ? (
-        <section className={classes.filters_container}>
-          <p>filtros pokemons</p>
-        </section>
-      ) : null} */}
-
       {filter ? (
         <section
-          style={{ height: '250px' }}
+          style={{ height: '400px' }}
           className={classes.search_container}
         >
           <div className={classes.filters_container}>
-            <p>filtros pokemons</p>
+            <h2>Avanced Search</h2>
+            <section className={classes.types_container}>
+              {uniqueTypes.map((type) => (
+                <PokemonTypes
+                  key={type}
+                  type={type}
+                  name={type}
+                  onClick={handleTypeClick}
+                  className={classes.type_pokemons}
+                />
+              ))}
+            </section>
           </div>
         </section>
       ) : (
@@ -33,10 +54,14 @@ export function PokemonsFilters() {
       )}
       <Button
         className={classes.button_container}
-        onClick={handleFiltersClick}
-        name='Advanced Search'
-        icon={filter ? 'expand_up' : 'expand_down'}
-      />
+        onClick={handleClick}
+        title={'Avanced Search'}
+      >
+        <Icon
+          className={classes.icon}
+          name={filter ? 'expand_up' : 'expand_down'}
+        />
+      </Button>
     </div>
   );
 }

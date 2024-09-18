@@ -1,6 +1,4 @@
-/* eslint-disable react/prop-types */
 import classes from './PokemonCard.module.css';
-import cardClasses  from './UI/Card.module.css';
 import { Card } from './UI/Card';
 import { PokemonTypes } from './PokemonTypes';
 
@@ -12,7 +10,7 @@ export function PokemonCard ({pokemon}) {
     : pokemon.secondaryImage;
 
   return (
-    <Card className={cardClasses.card}>
+    <Card className={classes.card}>
       <section className={classes.pokemons_container}>
         <div className={classes.pokemon_id_container}>
           <p>{`#${pokemon.id}`}</p>
@@ -27,7 +25,7 @@ export function PokemonCard ({pokemon}) {
         </div>
 
         <div className={classes.pokemon_name_container}>
-          <p>{pokemon.name}</p>
+          <p className={classes.pokemon_name}>{pokemon.name}</p>
         </div>
       </section>
 

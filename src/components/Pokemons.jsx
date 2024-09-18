@@ -1,9 +1,10 @@
 import classes from './Pokemons.module.css';
-import{ PokemonCard } from './PokemonCard'
+import { PokemonCard } from './PokemonCard';
 import { Button } from './UI/Button';
-import { useSort } from '../hooks/useSort';
 import { PokemonsContext } from '../context/PokemonsContext';
 import { useContext, useEffect } from 'react';
+import { SortSelection } from './UI/SortSelection';
+import { Icon } from './UI/Icon';
 
 function ListOfPokemons({ pokemons }) {
   return (
@@ -18,46 +19,38 @@ function ListOfPokemons({ pokemons }) {
 }
 
 function NoPokemonsResults() {
-  return<p>No pokemons found for this search</p>;
+  return <p>No pokemons found for this search</p>;
 }
 
 export function Pokemons() {
-  const { pokemons, getAllPokemons, error } = useContext(PokemonsContext);
-  const { sortedPokemons, setSortSelection } = useSort(pokemons)
-  const hasPokemons = pokemons?.length > 0;
+  const { pokemons, 
+          getPokemons,
+          getAllPokemons, 
+          sortedPokemons, 
+          setSortSelection 
+  } = useContext(PokemonsContext);
+
+  const hasPokemons = sortedPokemons?.length > 0;
 
   const handleChange = (event) => {
     const newSort = event.target.value;
-    setSortSelection(newSort)
-  }
+    setSortSelection(newSort);
+    console.log(sortedPokemons);
+  };
 
   const handleClick = () => {
     alert('Button clicked!');
   };
 
   useEffect(() => {
-    getAllPokemons();
+    getPokemons();
   }, []);
 
   return (
     <main>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
       {hasPokemons ? (
         <>
-          <section className={classes.selection}>
-            <label htmlFor='dropdown'>Sort Pokemon by:</label>
-            <select
-              id='dropdown'
-              name='pokemon'
-              onChange={handleChange}
-              defaultValue={'increaseId'}
-            >
-              <option value='increaseId'>Number: Low to High</option>
-              <option value='decreaseId'>Number: High to Low</option>
-              <option value='increaseName'>Name: A-Z</option>
-              <option value='decreaseName'>Name: Z-A</option>
-            </select>
-          </section>
+          <SortSelection onChange={handleChange} />
           <ListOfPokemons pokemons={sortedPokemons} />
         </>
       ) : (
@@ -65,10 +58,15 @@ export function Pokemons() {
       )}
       {pokemons?.length >= 50 ? (
         <Button
-          name='More'
-          icon='expand_down'
+          className={classes.button_container}
           onClick={handleClick}
-        />
+          title={'More Pokemons'}
+        >
+          <Icon
+            className={classes.icon}
+            name='expand_down'
+          />
+        </Button>
       ) : null}
     </main>
   );

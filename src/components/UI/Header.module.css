@@ -1,55 +1,61 @@
 .header {
   display: flex;
-  justify-content:space-around;
+  justify-content: space-around;
   align-items: center;
-  width: auto;
-  height: 150px;
   flex-wrap: wrap;
   gap: 10px;
+  height: 150px;
   background: #ff0202; 
-  
 }
 
 .logo {
+  width: 220px;
   height: 100px;
 }
 
 .form {
   display: flex;
   justify-content: center;
-  justify-items: center;
-  align-content: center;
   align-items: center;
   gap: 10px;
-  flex-wrap: wrap;
-  /* border: solid 2px black */
+  height: 45px;
 }
 
 .input {
-  transition: background-color var(--animation-duration, 0.1s) linear,
-              border-color var(--animation-duration, 0.1s) linear,
-              color var(--animation-duration, 0.1s) linear,
-              box-shadow var(--animation-duration, 0.1s) linear,
-              transform var(--animation-duration, 0.1s) ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   padding: 10px;
   font-family: inherit;
   font-size: inherit;
   border-radius: 6px;
-  width: 200px;
+  width: auto;
+  height: 100%;
   background-color: #fff;
-  color: var(--form-text, #1d1d1d);
+  color: #1d1d1d;
   border-radius: 6px;
   border: none;
   outline: none;
-  
+  transition: box-shadow 0.2s ease-in-out;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
 }
 
 .input:focus {
-  box-shadow: 0 0 0 2px var(--focus, #0096bfab);
+  box-shadow: 0 0 0 2px #0096bfab;
 }
 
 .input:disabled {
   cursor: not-allowed;
   opacity: 0.5;
+}
+
+.button_container {
+  width: auto;
+  height: 100%;
+  padding: 0 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+}
+
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }

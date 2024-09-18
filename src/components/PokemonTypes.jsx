@@ -22,13 +22,17 @@ const colorType = {
   water: '#2980EF',
 };
 
-export function PokemonTypes({ type }) {
+export function PokemonTypes({ type, onClick, className }) {
   return (
     <div
       style={{ backgroundColor: colorType[type] }}
-      className={classes.container}
+      className={`${classes.container} ${className}`}
+      onClick={onClick}
     >
-      <Icon type={type} />
+      <Icon
+        name={type}
+        className={`${classes.icon_container}`}
+      />
       <p>{type}</p>
     </div>
   );

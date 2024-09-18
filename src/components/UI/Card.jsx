@@ -1,5 +1,5 @@
-import css from './Card.module.css'
+import classes from './Card.module.css';
 
-export function Card(props) {
-  return <div className={css.card} >{props.children}</div>
+export function Card({children, className}) {
+  return <div className={`${classes.card} ${className}`}>{children}</div>;
 }

@@ -4,6 +4,7 @@ import { Button } from './Button';
 import { PokemonsFilters } from '../PokemonsFilters';
 import { PokemonsContext } from '../../context/PokemonsContext';
 import { useContext } from 'react';
+import { Icon } from './Icon';
 
 export function Header() {
   
@@ -44,10 +45,15 @@ export function Header() {
             onChange={handleChange}
           />
           <Button
-            name='Search'
-            icon='search'
+            className={classes.button_container}
             onClick={handleSubmit}
-          />
+            title={'Search Pokemon'}
+          >
+            <Icon
+              className={classes.icon}
+              name='search'
+            />
+          </Button>
         </form>
       </header>
       <PokemonsFilters />

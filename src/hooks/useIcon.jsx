@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export function useIcon({type}) {
+export function useIcon({ name }) {
   // Importar todos los archivos SVG de la carpeta `icons`
   const svgIcons = import.meta.glob('/src/assets/icons/*.svg');
 
@@ -12,7 +12,7 @@ export function useIcon({type}) {
       let foundIcon = null;
       // Iterar sobre las claves del objeto svgIcons usando un ciclo `for`
       for (const path in svgIcons) {
-        if (path.includes(type)) {
+        if (path.includes(name)) {
           const module = await svgIcons[path]();
           foundIcon = module.default;
           break; // Salir del bucle una vez que encontramos el ícono
@@ -21,7 +21,7 @@ export function useIcon({type}) {
       setIcon(foundIcon);
     };
     loadIcon();
-  }, [type]);
+  }, [name]);
 
-  return { icon }
+  return { icon };
 }

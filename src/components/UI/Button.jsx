@@ -1,16 +1,13 @@
 import classes from './Button.module.css'
-import { Icon } from './Icon';
 
-export function Button({ name, icon, className, onClick }) {
+export function Button({ children, className, onClick, title }) {
   return (
     <div
-      className={`${classes.button_container} ${className}`}
+      className={`${classes.button} ${className}`}
       onClick={onClick}
+      title={title}
     >
-      <div className={`${classes.icon_container}`}>
-        <Icon type={icon} />
-      </div>
-      <p>{name}</p>
+      {children}
     </div>
   );
 }

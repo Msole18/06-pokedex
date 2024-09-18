@@ -1,0 +1,33 @@
+
+.selection {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 80%;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+select {
+  transition: background-color var(--animation-duration, 0.1s) linear,
+              border-color var(--animation-duration, 0.1s) linear,
+              color var(--animation-duration, 0.1s) linear,
+              box-shadow var(--animation-duration, 0.1s) linear,
+              transform var(--animation-duration, 0.1s) ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  padding: 10px;
+  font-family: inherit;
+  font-size: inherit;
+  border-radius: 6px;
+  width: 200px;
+  background-color: #fff;
+  color: var(--form-text, #1d1d1d);
+  border-radius: 6px;
+  border: none;
+  outline: none;
+  
+}
+
+select:focus {
+  box-shadow: 0 0 0 2px var(--focus, #0096bfab);
+}

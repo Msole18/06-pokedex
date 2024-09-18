@@ -6,8 +6,6 @@
   margin-bottom: 60px;
 }
 
-
-
 .search_container {
   display:flex;
   flex-direction: column;
@@ -16,19 +14,50 @@
   position: relative;
   height: 50px;
   background-color: #000000;
-  /* border: solid 2px green; */
 }
 
 .filters_container{
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: center;
   position: absolute;
   top:0px;
   width: 100%;
   height: 80%;
   background-color: #0f0f0fd8;
-  /* border: solid 2px yellow; */
+  border: solid 2px green;
+}
+
+
+.types_container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  /* overflow: hidden; */
+  width: 100%;
+  
+  gap: 5px;
+  border: solid 2px red;
+}
+
+.type_pokemons {
+  width: 85px;
+  height: 26px;
+  cursor: pointer;
+}
+
+.type_pokemons:hover {
+  background-color: #d0cfcf;
+}
+
+
+.type_pokemons:focus {
+  box-shadow: 0 0 0 2px #0096bfab;
+}
+
+.type_pokemons:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
 }
 
 
@@ -36,16 +65,24 @@
   display:flex;
   flex-direction: column-reverse;
   position: absolute;
-  top: calc(100% - 25px); /* Centra verticalmente */
+  top: calc(100% - 25px); 
   left: 50%; 
   transform: translate(-50%, -50%);  
   z-index: 1; 
   background-color: #fff;
-  border: solid 40px black;
+  /* border: solid 40px black; */
   border-radius: 50% ;
-  height: 180px;
-  width: auto;
+  height: 80px;
+  width: 80px;
   padding: 5px;
   overflow: hidden;
-  
+  box-shadow: 0 0 0 30px black;/* Centra verticalmente */
+
+}
+
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
 }
