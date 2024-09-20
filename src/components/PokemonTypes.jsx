@@ -25,9 +25,9 @@ const colorType = {
 export function PokemonTypes({ type, onClick, className }) {
   return (
     <div
-      style={{ backgroundColor: colorType[type] }}
       className={`${classes.container} ${className}`}
-      onClick={onClick}
+      onClick={() => onClick(type)}
+      style={{ backgroundColor: colorType[type] }}
     >
       <Icon
         name={type}

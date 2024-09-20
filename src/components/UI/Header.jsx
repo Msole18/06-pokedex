@@ -1,18 +1,25 @@
 import pokeLogo from '../../assets/pokemon-logo.svg';
 import classes from './Header.module.css';
+import { Icon } from './Icon';
 import { Button } from './Button';
-import { PokemonsFilters } from '../PokemonsFilters';
+import { FiltersPanel } from './FiltersPanel';
 import { PokemonsContext } from '../../context/PokemonsContext';
 import { useContext } from 'react';
-import { Icon } from './Icon';
 
 export function Header() {
   
-  const { search, setSearch, getSearchedPokemons, error } = useContext(PokemonsContext);
+  const { 
+    search, 
+    setSearch, 
+    getSearchedPokemons, 
+    error 
+  } = useContext(PokemonsContext);
 
   const handleSubmit = (event) => {
-    event.preventDefault();
-    getSearchedPokemons({search});
+    event.prventDefault();
+    const newSearch = event.target.value;
+    setSearch(newSearch);
+    getSearchedPokemons({ search: newSearch });
   };
 
   const handleChange = (event) => {
@@ -48,6 +55,7 @@ export function Header() {
             className={classes.button_container}
             onClick={handleSubmit}
             title={'Search Pokemon'}
+            type='submit'
           >
             <Icon
               className={classes.icon}
@@ -56,7 +64,7 @@ export function Header() {
           </Button>
         </form>
       </header>
-      <PokemonsFilters />
+      <FiltersPanel />
     </>
   );
 }

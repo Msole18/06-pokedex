@@ -24,10 +24,10 @@ function NoPokemonsResults() {
 
 export function Pokemons() {
   const { pokemons, 
-          getPokemons,
-          getAllPokemons, 
           sortedPokemons, 
-          setSortSelection 
+          setSortSelection,
+          offset,
+          setOffset
   } = useContext(PokemonsContext);
 
   const hasPokemons = sortedPokemons?.length > 0;
@@ -35,16 +35,12 @@ export function Pokemons() {
   const handleChange = (event) => {
     const newSort = event.target.value;
     setSortSelection(newSort);
-    console.log(sortedPokemons);
   };
 
   const handleClick = () => {
-    alert('Button clicked!');
+    const newLoad = offset + 50;
+    setOffset( newLoad );
   };
-
-  useEffect(() => {
-    getPokemons();
-  }, []);
 
   return (
     <main>
@@ -61,7 +57,7 @@ export function Pokemons() {
           className={classes.button_container}
           onClick={handleClick}
           title={'More Pokemons'}
-        >
+        >Load more
           <Icon
             className={classes.icon}
             name='expand_down'

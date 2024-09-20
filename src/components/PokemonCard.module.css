@@ -75,3 +75,10 @@
   margin-top: 3px;
 }
 
+.types_list {
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  gap: 5px;
+}
+

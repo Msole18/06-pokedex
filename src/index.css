@@ -2,7 +2,7 @@
  * Forced light theme version
  */
 
-/* :root {
+:root {
   --background-body: #fff;
   --background: #efefef;
   --background-alt: #f7f7f7;
@@ -24,7 +24,7 @@
   --variable: #39a33c;
   --highlight: #ff0;
   --select-arrow: url("data:image/svg+xml;charset=utf-8,%3C?xml version='1.0' encoding='utf-8'?%3E %3Csvg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' height='62.5' width='116.9' fill='%23161f27'%3E %3Cpath d='M115.3,1.6 C113.7,0 111.1,0 109.5,1.6 L58.5,52.7 L7.4,1.6 C5.8,0 3.2,0 1.6,1.6 C0,3.2 0,5.8 1.6,7.4 L55.5,61.3 C56.3,62.1 57.3,62.5 58.4,62.5 C59.4,62.5 60.5,62.1 61.3,61.3 L115.2,7.4 C116.9,5.8 116.9,3.2 115.3,1.6Z'/%3E %3C/svg%3E");
-} */
+}
 
 
 
@@ -44,70 +44,6 @@ body {
   background: rgb(213,213,221);
   background: linear-gradient(90deg, rgba(213,213,221,1) 0%, rgba(251,249,249,1) 51%, rgba(213,213,221,1) 100%);
 }
-
-h1 {
-  font-size: 2.2em;
-  margin-top: 0;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin-bottom: 12px;
-  margin-top: 24px;
-}
-
-h1 {
-  color: #000;
-  color: var(--text-bright);
-}
-
-h2 {
-  color: #000;
-  color: var(--text-bright);
-}
-
-h3 {
-  color: #000;
-  color: var(--text-bright);
-}
-
-h4 {
-  color: #000;
-  color: var(--text-bright);
-}
-
-h5 {
-  color: #000;
-  color: var(--text-bright);
-}
-
-h6 {
-  color: #000;
-  color: var(--text-bright);
-}
-
-strong {
-  color: #000;
-  color: var(--text-bright);
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-b,
-strong,
-th {
-  font-weight: 600;
-}
-
-
 
 * {
     box-sizing: border-box;

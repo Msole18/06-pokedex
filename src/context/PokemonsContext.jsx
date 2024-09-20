@@ -13,11 +13,15 @@ export function PokemonsProvider ({ children }) {
     getPokemons,
     getAllPokemons,
     getSearchedPokemons,
-    limit, offset,
+    limit,
+    setLimit,
+    offset,
+    setOffset,
     loading,
+    error,
   } = usePokemons(search);
 
-  const { updateSearch, setUpdateSearch, error } = useSearch(search);
+  // const { updateSearch, setUpdateSearch, error } = useSearch(search);
   const { sortedPokemons, setSortSelection } = useSort(mappedPokemons);
 
    return (
@@ -32,12 +36,14 @@ export function PokemonsProvider ({ children }) {
          getAllPokemons,
          getSearchedPokemons,
          limit,
+         setLimit,
          offset,
+         setOffset,
          loading,
-         // useSearch
-         updateSearch,
-         setUpdateSearch,
          error,
+         // useSearch
+        //  updateSearch,
+        //  setUpdateSearch,
          // useSort
          sortedPokemons,
          setSortSelection,

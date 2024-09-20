@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 const POKEMON_ENDPOINT = `https://pokeapi.co/api/v2/pokemon`;
 const SEARCHED_POKEMON_ENDPOINT = `https://pokeapi.co/api/v2/pokemon/`;
@@ -11,8 +11,7 @@ export const usePokemons = ({ search  }) => {
   const [limit, setLimit] = useState(0);
   const previousSearch = useRef({ search });
 
-  const getPokemons = (limit = 50, offset = 0) => {
-     setResponsePokemons([]);
+  const getPokemons = (limit = 50) => {
      setLoading(true);
      setError(null);
      fetch(`${POKEMON_ENDPOINT}?limit=${limit}&offset=${offset}`)
@@ -45,7 +44,6 @@ export const usePokemons = ({ search  }) => {
   };
 
   const getAllPokemons = (limit = 100000, offset = 0) => {
-    setResponsePokemons([]);
     setLoading(true);
     setError(null);
     fetch(`${POKEMON_ENDPOINT}?limit=${limit}&offset=${offset}`)
@@ -96,6 +94,11 @@ export const usePokemons = ({ search  }) => {
       });
   }, []);
 
+  useEffect(() =>{
+    getPokemons();
+  },[limit, offset])
+
+
   const mappedPokemons = responsePokemons?.map((pokemon) => ({
     id: pokemon.id,
     name: pokemon.name,
@@ -110,7 +113,9 @@ export const usePokemons = ({ search  }) => {
     getAllPokemons,
     getSearchedPokemons,
     limit,
+    setLimit,
     offset,
+    setOffset,
     loading,
     error,
     search,
