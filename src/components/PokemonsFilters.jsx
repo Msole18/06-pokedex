@@ -1,37 +1,61 @@
 import classes from './PokemonsFilters.module.css'
-import { Card } from './UI/Card'
 import { Button } from './UI/Button';
 import { Icon } from './UI/Icon';
 import { PokemonTypes } from './PokemonTypes';
 import { PokemonsContext } from '../context/PokemonsContext';
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
+
+function TypesFilter (types) {
+
+  const handleTypeClick = (type) => {
+    console.log('click: ', type);
+  };
+  return (
+    <section className={classes.types_container}>
+      <p>Pokemons Types:</p>
+      <ul className={classes.types_list}>
+        {types.map((type) => (
+          <li key={type}>
+            <PokemonTypes
+              className={classes.pokemons_type}
+              onClick={handleTypeClick}
+              type={type}
+            />
+          </li>
+        ))}
+      </ul>
+    </section>
+  ); 
+}
 
 export function PokemonsFilters() {
-  const { pokemons, error } = useContext(PokemonsContext);
+  const { types, limit, setLimit, offset, setOffeset, error } = useContext(PokemonsContext);
 
-  //Get all types in alphabetical order without repeating them
-  const uniqueTypes = [
-    ...new Set(
-      pokemons?.flatMap((pokemon) =>
-        pokemon.type.map((type) => type.type.name)
-      ) || []
-    ),
-  ].sort((a, b) => a.localeCompare(b));
+  const pokemonsTypes = types
+    .filter((type) => type !== 'stellar' && type !== 'unknown')
+    .sort((a, b) => a.localeCompare(b));
+
 
   const handleTypeClick = (type) => {
     console.log('click: ', type);
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const fields = Object.fromEntries(new window.FormData(event.target))
+    console.log('fields:', fields);
+  };
+
   return (
     <form
       className={classes.form}
-      // onSubmit={handleSubmit}
+      onSubmit={handleSubmit}
     >
       <h2>Avanced Search</h2>
       <section className={classes.types_container}>
         <p>Pokemons Types:</p>
         <ul className={classes.types_list}>
-          {uniqueTypes.map((type) => (
+          {pokemonsTypes.map((type) => (
             <li key={type}>
               <PokemonTypes
                 className={classes.pokemons_type}
@@ -50,9 +74,8 @@ export function PokemonsFilters() {
             borderColor: error ? 'red' : 'transparent',
           }}
           className={classes.input}
-          type='text'
           placeholder='1'
-          // value={lowerSeq}
+          name='lowerSeq'
           // onChange={handleLowerSeqChange}
         />
         {' - '}
@@ -62,31 +85,30 @@ export function PokemonsFilters() {
             borderColor: error ? 'red' : 'transparent',
           }}
           className={classes.input}
-          type='text'
           placeholder='1276'
-          // value={upperSeq}
+          name='highSeq'
           // onChange={handleUpperSeqChange}
         />
       </section>
       <section className={classes.buttons_container}>
         <Button
           className={classes.button_container}
-          // onClick={handleReset}
-          title={'Reset Search'}
-          name={'reset'}
-        >
-          Reset Search
-        </Button>
-        <Button
-          className={classes.button_container}
-          // onClick={handleSubmit}
+          type='submit'
           title={'Search'}
         >
           <Icon
             className={classes.icon}
+            type='submit'
             name='search'
           />
           Search
+        </Button>
+        <Button
+          className={classes.button_container}
+          type='submit'
+          name={'reset'}
+        >
+          Reset Search
         </Button>
       </section>
     </form>

@@ -25,7 +25,6 @@ export function Header() {
   const handleChange = (event) => {
     const newSearch = event.target.value;
     setSearch(newSearch); 
-    getSearchedPokemons({search: newSearch});
   };
 
   return (

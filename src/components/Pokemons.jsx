@@ -1,10 +1,10 @@
 import classes from './Pokemons.module.css';
 import { PokemonCard } from './PokemonCard';
 import { Button } from './UI/Button';
-import { PokemonsContext } from '../context/PokemonsContext';
-import { useContext, useEffect } from 'react';
-import { SortSelection } from './UI/SortSelection';
 import { Icon } from './UI/Icon';
+import { SortSelection } from './UI/SortSelection';
+import { PokemonsContext } from '../context/PokemonsContext';
+import { useContext } from 'react';
 
 function ListOfPokemons({ pokemons }) {
   return (
@@ -52,7 +52,7 @@ export function Pokemons() {
       ) : (
         <NoPokemonsResults />
       )}
-      {pokemons?.length >= 50 ? (
+      {pokemons?.length >= 20 ? (
         <Button
           className={classes.button_container}
           onClick={handleClick}
