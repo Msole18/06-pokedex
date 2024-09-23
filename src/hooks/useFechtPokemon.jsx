@@ -9,9 +9,10 @@ export const useFetchPokemon = ({ search }) => {
   const [types, setTypes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [offset, setOffset] = useState(0);
   const [limit, setLimit] = useState(50);
+  const [offset, setOffset] = useState(0);
   const previousSearch = useRef({ search });
+  
 
    const getPokemonsTypes = () => {
     setLoading(true);
@@ -34,6 +35,8 @@ export const useFetchPokemon = ({ search }) => {
   };
 
   const getPokemons = (limit = 50, offset = 0) => {
+    console.log('getPokemons: ');
+    
     setLoading(true);
     setError(null);
     fetch(`${POKEMON_ENDPOINT}?limit=${limit}&offset=${offset}`)
@@ -107,6 +110,7 @@ export const useFetchPokemon = ({ search }) => {
   }, [limit, offset]);
 
   return {
+    responsePokemons, setResponsePokemons,
     pokemons: mappedPokemons,
     getPokemonsTypes,
     getPokemons,

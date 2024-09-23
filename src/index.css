@@ -30,7 +30,7 @@
 
 html {
   scrollbar-color: rgb(170, 170, 170) #fff;
-  scrollbar-width:auto;
+  scrollbar-width: thin;
 }
 
 body {

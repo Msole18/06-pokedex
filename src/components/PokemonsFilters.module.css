@@ -5,7 +5,8 @@ h2 {
   color: #FFCB05;
   -webkit-text-stroke: 2px #3960AA; /* Color de borde azul */
   text-shadow: 
-    -3px 3px 0px #1B366B;
+    -3px 3px 0px #1B366B,
+    -6px 6px 0px #12304A;
   }
 
 .form {
@@ -32,8 +33,9 @@ h2 {
   font-weight: 500;
   gap: 8px;
   width: 90%;
-  overflow: hidden;
-
+  overflow: auto;
+  scrollbar-color: rgb(170, 170, 170) #fff;
+  scrollbar-width: thin;
 }
 
 .types_list {
@@ -54,10 +56,11 @@ h2 {
   padding: 3px 0;
   width: 100%;
   cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .pokemons_type:hover {
-  background-color: #d0cfcf;
+  background-color: #0e0d0d;
 }
 
 .pokemons_type:focus {
@@ -66,6 +69,21 @@ h2 {
 .pokemons_type:active {
   background-color: #1a1919;
 }
+
+.pokemons_type.selected {
+  background-color: #4b4a49e5; /* Color de fondo cuando está seleccionado */
+ 
+  position: relative;
+}
+
+.pokemons_type.selected::after {
+  content: '×';
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 .pokemons_type:disabled {
   cursor: not-allowed;
   opacity: 0.5;

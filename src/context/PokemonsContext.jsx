@@ -9,11 +9,13 @@ export function PokemonsProvider({ children }) {
   const [search, setSearch] = useState('');
 
   const {
+    responsePokemons,
+    setResponsePokemons,
     pokemons: mappedPokemons,
     getPokemonsTypes,
     getPokemons,
     getSearchedPokemons,
-    types, 
+    types,
     setTypes,
     limit,
     setLimit,
@@ -25,9 +27,11 @@ export function PokemonsProvider({ children }) {
   
   // const { updateSearch, setUpdateSearch, error } = useSearch(search);
 
+  //Automatic search when typing
   const filteredPokemon = mappedPokemons.filter((pokemon) =>
     pokemon.name.includes(search)
   );
+  
 
   // console.log({ filteredPokemon, mappedPokemons, search });
   const { sortedPokemons, setSortSelection } = useSort(filteredPokemon);
@@ -39,11 +43,13 @@ export function PokemonsProvider({ children }) {
         search,
         setSearch,
         // useFetchPokemon
+        responsePokemons,
+        setResponsePokemons,
         pokemons: mappedPokemons,
         getPokemonsTypes,
         getPokemons,
         getSearchedPokemons,
-        types, 
+        types,
         setTypes,
         limit,
         setLimit,
