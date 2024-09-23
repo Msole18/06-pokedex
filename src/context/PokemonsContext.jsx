@@ -7,6 +7,8 @@ export const PokemonsContext = createContext();
 
 export function PokemonsProvider({ children }) {
   const [search, setSearch] = useState('');
+  const [limit, setLimit] = useState(0);
+  const [offset, setOffset] = useState(0);
 
   const {
     responsePokemons,
@@ -17,13 +19,9 @@ export function PokemonsProvider({ children }) {
     getSearchedPokemons,
     types,
     setTypes,
-    limit,
-    setLimit,
-    offset,
-    setOffset,
     loading,
     error,
-  } = useFetchPokemon(search);
+  } = useFetchPokemon({search,limit,offset});
   
   // const { updateSearch, setUpdateSearch, error } = useSearch(search);
 
@@ -31,7 +29,7 @@ export function PokemonsProvider({ children }) {
   const filteredPokemon = mappedPokemons.filter((pokemon) =>
     pokemon.name.includes(search)
   );
-  
+
 
   // console.log({ filteredPokemon, mappedPokemons, search });
   const { sortedPokemons, setSortSelection } = useSort(filteredPokemon);

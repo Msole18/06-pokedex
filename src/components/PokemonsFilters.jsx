@@ -37,35 +37,38 @@ function SequencesFilter({
   previousOffset,
   previousLimit,
   handleInputChange,
+  handleBlur,
   inputError,
 }) {
   return (
     <section className={classes.sequences_container}>
-      <p>Pokemons Sequences: </p>
-      <input
-        style={{
-          border: '1px solid transparent',
-          borderColor: inputError ? 'red' : 'transparent',
-        }}
-        className={classes.input}
-        ref={previousOffset}
-        placeholder='1'
-        name='offsetInput'
-        onChange={handleInputChange} // Trigger validation on change
-      />
-      {' - '}
-      <input
-        style={{
-          border: '1px solid transparent',
-          borderColor: inputError ? 'red' : 'transparent',
-        }}
-        className={classes.input}
-        ref={previousLimit}
-        placeholder='1276'
-        name='limitInput'
-        onChange={handleInputChange} // Trigger validation on change
-      />
-
+      <h4>Pokemons Sequences: </h4>
+      <div>
+        <p>From number: </p>
+        <input
+          style={{
+            border: '1px solid transparent',
+            borderColor: inputError ? 'red' : 'transparent',
+          }}
+          className={classes.input}
+          ref={previousOffset}
+          placeholder='1'
+          name='offsetInput'
+        />
+      </div>
+      <div>
+        <p>To number: </p>
+        <input
+          style={{
+            border: '1px solid transparent',
+            borderColor: inputError ? 'red' : 'transparent',
+          }}
+          className={classes.input}
+          ref={previousLimit}
+          placeholder='1276'
+          name='limitInput'
+        />
+      </div>
       {/* Show error message below the inputs */}
       {inputError && <p className={classes.error}>{inputError}</p>}
     </section>
@@ -79,8 +82,7 @@ export function PokemonsFilters() {
     setLimit,
     offset,
     setOffset,
-    setResponsePokemons,
-    error,
+    setResponsePokemons
   } = useContext(PokemonsContext);
   const [selectedTypes, setSelectedTypes] = useState([]);
   const [inputError, setInputError] = useState('');
@@ -100,49 +102,22 @@ export function PokemonsFilters() {
     );
   };
 
-  // Input validation function
-  const validateInputs = (offset, limit) => {
-    if (offset === '' || limit === '') {
-      return ''; // No error if any input is empty
-    }
+ const validateInputs = (offset, limit) => {
+  
+   if (isNaN(offset) || isNaN(limit)) {
+     return 'Values must be numbers';
+   }
 
-    if (isNaN(offset) || isNaN(limit)) {
-      return 'Both values must be numbers';
-    }
+   if (offset < 1 || offset > 1276 || limit < 1 || limit > 1276) {
+     return 'Values must be between 1 and 1276';
+   }
 
-    if (offset < 1 || offset > 1276 || limit < 1 || limit > 1276) {
-      return 'Values must be between 1 and 1276';
-    }
+   if (offset > limit) {
+     return 'Offset must be less than limit';
+   }
 
-    if (offset >= limit) {
-      return 'Offset must be less than limit';
-    }
-
-    return ''; // Return empty string if there are no errors
-  };
-
-  // Function to handle input changes and real-time validation
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-
-    // Update refs based on the input name
-    if (name === 'offsetInput') {
-      previousOffset.current.value = value; // Update with raw value
-    } else if (name === 'limitInput') {
-      previousLimit.current.value = value; // Update with raw value
-    }
-
-    // Parse inputs only if they are not empty
-    const offset =
-      value === '' ? '' : parseInt(previousOffset.current.value, 10);
-    const limit = value === '' ? '' : parseInt(previousLimit.current.value, 10);
-
-    // Perform validation
-    const validationError = validateInputs(offset, limit);
-
-    // Update error state for real-time feedback
-    setInputError(validationError);
-  };
+   return ''; // No errors
+ };
 
   // Form submission function
   const handleSubmit = (event) => {
@@ -151,34 +126,43 @@ export function PokemonsFilters() {
       new window.FormData(event.target)
     );
 
-    const offset = parseInt(offsetInput);
-    const limit = parseInt(limitInput);
+    // Parse inputs
+    const offset = parseInt(offsetInput, 10);
+    const limit = parseInt(limitInput, 10);
 
-    // if there's a validation error
-    if (inputError) return;
+    // Perform validation
+    const validationError = validateInputs(offset, limit);
+
+    if (validationError) {
+      setInputError(validationError); // Show error if any
+      return;
+    }
 
     // If values haven't changed, no need to update state
     if (
       limitInput === previousLimit.current &&
       offsetInput === previousOffset.current
     )
-      return;
+      return console.log('entre al if del submit');
 
     const clearPokemons = [];
-    const newLimit = limit - offset + 1;
-    const newOffset = offset - 1;
+    const newLimit = limitInput - offsetInput + 1;
+    const newOffset = offsetInput - 1;
 
     setResponsePokemons(clearPokemons);
     setLimit(newLimit);
     setOffset(newOffset);
     // Update input refs
+    setInputError('');
     previousLimit.current = limitInput;
     previousOffset.current = offsetInput;
+    console.log('handleSubmit: ', { limit, offset });
   };
 
   useEffect(() => {
-    console.log('selectedTypes: ', selectedTypes);
-  }, [selectedTypes]);
+    console.log('useEffect selectedTypes: ', selectedTypes);
+
+  }, [selectedTypes,limit,offset]);
 
   return (
     <form
@@ -194,8 +178,7 @@ export function PokemonsFilters() {
       <SequencesFilter
         previousOffset={previousOffset}
         previousLimit={previousLimit}
-        handleInputChange={handleInputChange} // Handle input changes
-        inputError={inputError} // Display error
+        inputError={inputError} 
       />
 
       <section className={classes.buttons_container}>
