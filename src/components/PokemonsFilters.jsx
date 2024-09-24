@@ -82,9 +82,10 @@ export function PokemonsFilters() {
     setLimit,
     offset,
     setOffset,
-    setResponsePokemons
+    setResponsePokemons,
+    selectedTypes,
+    setSelectedTypes,
   } = useContext(PokemonsContext);
-  const [selectedTypes, setSelectedTypes] = useState([]);
   const [inputError, setInputError] = useState('');
   const previousLimit = useRef(limit);
   const previousOffset = useRef(offset);
@@ -100,6 +101,7 @@ export function PokemonsFilters() {
         ? prevSelectedTypes.filter((existingType) => existingType !== type)
         : [...prevSelectedTypes, type]
     );
+    
   };
 
  const validateInputs = (offset, limit) => {
@@ -113,7 +115,7 @@ export function PokemonsFilters() {
    }
 
    if (offset > limit) {
-     return 'Offset must be less than limit';
+     return 'From number must be less than To number';
    }
 
    return ''; // No errors
@@ -127,23 +129,21 @@ export function PokemonsFilters() {
     );
 
     // Parse inputs
-    const offset = parseInt(offsetInput, 10);
-    const limit = parseInt(limitInput, 10);
+    const offsetNum = parseInt(offsetInput, 10);
+    const limitNum = parseInt(limitInput, 10);
 
     // Perform validation
-    const validationError = validateInputs(offset, limit);
+    const validationError = validateInputs(offsetNum, limitNum);
 
     if (validationError) {
-      setInputError(validationError); // Show error if any
+      setInputError(validationError);
       return;
     }
 
-    // If values haven't changed, no need to update state
     if (
       limitInput === previousLimit.current &&
       offsetInput === previousOffset.current
-    )
-      return console.log('entre al if del submit');
+    ) return 
 
     const clearPokemons = [];
     const newLimit = limitInput - offsetInput + 1;
@@ -152,16 +152,14 @@ export function PokemonsFilters() {
     setResponsePokemons(clearPokemons);
     setLimit(newLimit);
     setOffset(newOffset);
-    // Update input refs
+
     setInputError('');
     previousLimit.current = limitInput;
     previousOffset.current = offsetInput;
-    console.log('handleSubmit: ', { limit, offset });
   };
 
   useEffect(() => {
     console.log('useEffect selectedTypes: ', selectedTypes);
-
   }, [selectedTypes,limit,offset]);
 
   return (

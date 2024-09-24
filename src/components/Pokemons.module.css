@@ -5,6 +5,7 @@ main {
   align-items: center;
   margin: 0% 10%;
   gap: 10px;
+  padding-top: 260px;
   margin-bottom: 10px;
   /* border: solid 2px red; */
 }

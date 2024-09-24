@@ -28,7 +28,7 @@ export function Header() {
   };
 
   return (
-    <>
+    <div className={classes.container}>
       <header className={classes.header}>
         <img
           className={classes.logo}
@@ -64,6 +64,6 @@ export function Header() {
         </form>
       </header>
       <FiltersPanel />
-    </>
+    </div>
   );
 }

@@ -103,7 +103,7 @@ export const useFetchPokemon = ({ search, limit, offset}) => {
     name: pokemon.name,
     defaultImage: pokemon.sprites.other.dream_world.front_default,
     secondaryImage: pokemon.sprites.other['official-artwork'].front_default,
-    type: pokemon.types,
+    type: pokemon.types
   }));
 
   useEffect(() => { 

@@ -9,6 +9,7 @@ export function PokemonsProvider({ children }) {
   const [search, setSearch] = useState('');
   const [limit, setLimit] = useState(0);
   const [offset, setOffset] = useState(0);
+  const [selectedTypes, setSelectedTypes] = useState([]);
 
   const {
     responsePokemons,
@@ -21,18 +22,28 @@ export function PokemonsProvider({ children }) {
     setTypes,
     loading,
     error,
-  } = useFetchPokemon({search,limit,offset});
-  
+  } = useFetchPokemon({ search, limit, offset });
+
   // const { updateSearch, setUpdateSearch, error } = useSearch(search);
 
   //Automatic search when typing
-  const filteredPokemon = mappedPokemons.filter((pokemon) =>
-    pokemon.name.includes(search)
+  // Función para filtrar Pokémon por tipos seleccionados
+  const filteredTypes = mappedPokemons.filter((pokemon) =>
+    pokemon.type.some((typeObj) => selectedTypes.includes(typeObj.type.name))
   );
 
+  const filteredPokemon = search
+    ? mappedPokemons.filter((pokemon) =>
+        pokemon.name.toLowerCase().includes(search.toLowerCase())
+      )
+    : mappedPokemons;
 
-  // console.log({ filteredPokemon, mappedPokemons, search });
-  const { sortedPokemons, setSortSelection } = useSort(filteredPokemon);
+  const hasFilteredTypes = selectedTypes.length > 0;
+  const finalPokemons = hasFilteredTypes ? filteredTypes : filteredPokemon;
+
+  console.log({ selectedTypes, filteredTypes, finalPokemons });
+
+  const { sortedPokemons, setSortSelection } = useSort(finalPokemons);
 
   return (
     <PokemonsContext.Provider
@@ -40,6 +51,8 @@ export function PokemonsProvider({ children }) {
         // Local State
         search,
         setSearch,
+        selectedTypes,
+        setSelectedTypes,
         // useFetchPokemon
         responsePokemons,
         setResponsePokemons,
