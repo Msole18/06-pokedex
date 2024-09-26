@@ -33,17 +33,11 @@ function TypesFilter({ types, selectedTypes, handleTypeClick }) {
   );
 }
 
-function SequencesFilter({
-  previousOffset,
-  previousLimit,
-  handleInputChange,
-  handleBlur,
-  inputError,
-}) {
+function SequencesFilter({ previousOffset, previousLimit, inputError }) {
   return (
     <section className={classes.sequences_container}>
       <h4>Pokemons Sequences: </h4>
-      <div>
+      <div className={classes.input_container}>
         <p>From number: </p>
         <input
           style={{
@@ -55,8 +49,6 @@ function SequencesFilter({
           placeholder='1'
           name='offsetInput'
         />
-      </div>
-      <div>
         <p>To number: </p>
         <input
           style={{
@@ -69,7 +61,6 @@ function SequencesFilter({
           name='limitInput'
         />
       </div>
-      {/* Show error message below the inputs */}
       {inputError && <p className={classes.error}>{inputError}</p>}
     </section>
   );
@@ -101,25 +92,23 @@ export function PokemonsFilters() {
         ? prevSelectedTypes.filter((existingType) => existingType !== type)
         : [...prevSelectedTypes, type]
     );
-    
   };
 
- const validateInputs = (offset, limit) => {
-  
-   if (isNaN(offset) || isNaN(limit)) {
-     return 'Values must be numbers';
-   }
+  const validateInputs = (offset, limit) => {
+    if (isNaN(offset) || isNaN(limit)) {
+      return 'Values must be numbers';
+    }
 
-   if (offset < 1 || offset > 1276 || limit < 1 || limit > 1276) {
-     return 'Values must be between 1 and 1276';
-   }
+    if (offset < 1 || offset > 1276 || limit < 1 || limit > 1276) {
+      return 'Values must be between 1 and 1276';
+    }
 
-   if (offset > limit) {
-     return 'From number must be less than To number';
-   }
+    if (offset > limit) {
+      return 'From number must be less than To number';
+    }
 
-   return ''; // No errors
- };
+    return ''; // No errors
+  };
 
   // Form submission function
   const handleSubmit = (event) => {
@@ -143,7 +132,8 @@ export function PokemonsFilters() {
     if (
       limitInput === previousLimit.current &&
       offsetInput === previousOffset.current
-    ) return 
+    )
+      return;
 
     const clearPokemons = [];
     const newLimit = limitInput - offsetInput + 1;
@@ -160,7 +150,7 @@ export function PokemonsFilters() {
 
   useEffect(() => {
     console.log('useEffect selectedTypes: ', selectedTypes);
-  }, [selectedTypes,limit,offset]);
+  }, [selectedTypes, limit, offset]);
 
   return (
     <>
@@ -175,30 +165,30 @@ export function PokemonsFilters() {
           handleTypeClick={handleTypeClick}
         />
         <SequencesFilter
-          previousOffset={previousOffset}
-          previousLimit={previousLimit}
-          inputError={inputError}
-        />
+            previousOffset={previousOffset}
+            previousLimit={previousLimit}
+            inputError={inputError}
+          />
 
-        <section className={classes.buttons_container}>
-          <Button
-            className={classes.button_container}
-            type='submit'
-          >
-            <Icon
-              className={classes.icon}
-              name='search'
-            />
-            Search
-          </Button>
-          <Button
-            className={classes.button_container}
-            type='button'
-            onClick={() => window.location.reload()}
-          >
-            Reset Search
-          </Button>
-        </section>
+          <section className={classes.buttons_container}>
+            <Button
+              className={classes.button_container}
+              type='submit'
+            >
+              <Icon
+                className={classes.icon}
+                name='search'
+              />
+              Search
+            </Button>
+            <Button
+              className={classes.button_container}
+              type='button'
+              onClick={() => window.location.reload()}
+            >
+              Reset Search
+            </Button>
+          </section>
       </form>
     </>
   );

@@ -16,15 +16,15 @@ export function Header() {
   } = useContext(PokemonsContext);
 
   const handleSubmit = (event) => {
-    event.prventDefault();
+    event.preventDefault();
     const newSearch = event.target.value;
     setSearch(newSearch);
-    getSearchedPokemons({ search: newSearch });
+    console.log('handleSubmit 1: ', { search });
+    getSearchedPokemons({ search });
   };
 
   const handleChange = (event) => {
     const newSearch = event.target.value;
-    console.log({newSearch})
     setSearch(newSearch); 
   };
 

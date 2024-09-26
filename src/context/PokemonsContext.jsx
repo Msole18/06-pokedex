@@ -24,13 +24,13 @@ export function PokemonsProvider({ children }) {
     loading,
     error,
   } = useFetchPokemon({ search, limit, offset });
+  console.log('context 1: ', { search}, {mappedPokemons});
 
   // Load More Click
   const handleLoadMore = () => {
     setOffset((prevOffset) => prevOffset + MINIMUM_POKEMONS_FOR_LOAD_MORE);
     setResponsePokemons((prevPokemons) => [...prevPokemons, ...mappedPokemons]);
   };
-  console.log({ search, mappedPokemons });
   const filteredTypes = mappedPokemons.filter((pokemon) =>
     pokemon.type.some((typeObj) => selectedTypes.includes(typeObj.type.name))
   );
@@ -46,7 +46,7 @@ export function PokemonsProvider({ children }) {
 
   const hasFilteredTypes = selectedTypes.length > 0;
   const finalPokemons = hasFilteredTypes ? filteredTypes : filteredPokemon;
-  console.log({ filteredPokemon });
+  // console.log({ filteredPokemon });
   const { sortedPokemons, setSortSelection } = useSort(finalPokemons);
 
   return (

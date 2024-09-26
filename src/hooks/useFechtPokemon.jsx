@@ -17,9 +17,8 @@ export const useFetchPokemon = ({ search, limit, offset}) => {
   
   const getPokemons = useCallback((limit = 18, offset = 0) => {
     console.log('getPokemons: ');
-    console.log('getPokemons: ', {limit, offset});
     if (limit === previousLimit.current && offset === previousOffset.current) {
-      return console.log('me agarro el if'); // No hacer nada si son iguales
+      return 
     }  
     setLoading(true);
     setError(null);
@@ -53,8 +52,8 @@ export const useFetchPokemon = ({ search, limit, offset}) => {
   }, []);
   
   const getSearchedPokemons = useCallback(({ search }) => {
-    if (search === '' || search === previousSearch.current) return;
-
+    console.log('getSearchedPokemons 1: ', { search });
+    if (search === '' || search === previousSearch.current) return console.log('getSearchedPokemons iF: ');
     setLoading(true);
     setError(null);
     previousSearch.current = search;
