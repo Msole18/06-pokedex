@@ -163,41 +163,43 @@ export function PokemonsFilters() {
   }, [selectedTypes,limit,offset]);
 
   return (
-    <form
-      className={classes.form}
-      onSubmit={handleSubmit}
-    >
+    <>
       <h2>Advanced Search</h2>
-      <TypesFilter
-        types={pokemonsTypes}
-        selectedTypes={selectedTypes}
-        handleTypeClick={handleTypeClick}
-      />
-      <SequencesFilter
-        previousOffset={previousOffset}
-        previousLimit={previousLimit}
-        inputError={inputError} 
-      />
+      <form
+        className={classes.form}
+        onSubmit={handleSubmit}
+      >
+        <TypesFilter
+          types={pokemonsTypes}
+          selectedTypes={selectedTypes}
+          handleTypeClick={handleTypeClick}
+        />
+        <SequencesFilter
+          previousOffset={previousOffset}
+          previousLimit={previousLimit}
+          inputError={inputError}
+        />
 
-      <section className={classes.buttons_container}>
-        <Button
-          className={classes.button_container}
-          type='submit'
-        >
-          <Icon
-            className={classes.icon}
-            name='search'
-          />
-          Search
-        </Button>
-        <Button
-          className={classes.button_container}
-          type='button'
-          onClick={() => window.location.reload()}
-        >
-          Reset Search
-        </Button>
-      </section>
-    </form>
+        <section className={classes.buttons_container}>
+          <Button
+            className={classes.button_container}
+            type='submit'
+          >
+            <Icon
+              className={classes.icon}
+              name='search'
+            />
+            Search
+          </Button>
+          <Button
+            className={classes.button_container}
+            type='button'
+            onClick={() => window.location.reload()}
+          >
+            Reset Search
+          </Button>
+        </section>
+      </form>
+    </>
   );
 }

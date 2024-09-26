@@ -24,6 +24,7 @@ export function Header() {
 
   const handleChange = (event) => {
     const newSearch = event.target.value;
+    console.log({newSearch})
     setSearch(newSearch); 
   };
 

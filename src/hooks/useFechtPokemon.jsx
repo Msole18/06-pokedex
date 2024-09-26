@@ -15,7 +15,7 @@ export const useFetchPokemon = ({ search, limit, offset}) => {
   
   
   
-  const getPokemons = useCallback((limit = 20, offset = 0) => {
+  const getPokemons = useCallback((limit = 18, offset = 0) => {
     console.log('getPokemons: ');
     console.log('getPokemons: ', {limit, offset});
     if (limit === previousLimit.current && offset === previousOffset.current) {

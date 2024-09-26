@@ -1,13 +1,14 @@
 import { createContext, useState } from 'react';
 import { useFetchPokemon } from '../hooks/useFechtPokemon';
-// import { useSearch } from "../hooks/useSearch";
 import { useSort } from '../hooks/useSort';
+
 
 export const PokemonsContext = createContext();
 
 export function PokemonsProvider({ children }) {
+  const MINIMUM_POKEMONS_FOR_LOAD_MORE = 18;
   const [search, setSearch] = useState('');
-  const [limit, setLimit] = useState(0);
+  const [limit, setLimit] = useState(18);
   const [offset, setOffset] = useState(0);
   const [selectedTypes, setSelectedTypes] = useState([]);
 
@@ -24,35 +25,40 @@ export function PokemonsProvider({ children }) {
     error,
   } = useFetchPokemon({ search, limit, offset });
 
-  // const { updateSearch, setUpdateSearch, error } = useSearch(search);
-
-  //Automatic search when typing
-  // Función para filtrar Pokémon por tipos seleccionados
+  // Load More Click
+  const handleLoadMore = () => {
+    setOffset((prevOffset) => prevOffset + MINIMUM_POKEMONS_FOR_LOAD_MORE);
+    setResponsePokemons((prevPokemons) => [...prevPokemons, ...mappedPokemons]);
+  };
+  console.log({ search, mappedPokemons });
   const filteredTypes = mappedPokemons.filter((pokemon) =>
     pokemon.type.some((typeObj) => selectedTypes.includes(typeObj.type.name))
   );
 
+  //Automatic search when typing
   const filteredPokemon = search
-    ? mappedPokemons.filter((pokemon) =>
-        pokemon.name.toLowerCase().includes(search.toLowerCase())
+    ? mappedPokemons.filter(
+        (pokemon) =>
+          pokemon.name.toLowerCase().includes(search.toLowerCase())||
+          pokemon.id.toString().includes(search)
       )
     : mappedPokemons;
 
   const hasFilteredTypes = selectedTypes.length > 0;
   const finalPokemons = hasFilteredTypes ? filteredTypes : filteredPokemon;
-
-  console.log({ selectedTypes, filteredTypes, finalPokemons });
-
+  console.log({ filteredPokemon });
   const { sortedPokemons, setSortSelection } = useSort(finalPokemons);
 
   return (
     <PokemonsContext.Provider
       value={{
-        // Local State
+        // Local
         search,
         setSearch,
         selectedTypes,
         setSelectedTypes,
+        handleLoadMore,
+        MINIMUM_POKEMONS_FOR_LOAD_MORE,
         // useFetchPokemon
         responsePokemons,
         setResponsePokemons,

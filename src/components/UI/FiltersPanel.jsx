@@ -18,7 +18,7 @@ export function FiltersPanel() {
       {filter ? (
         <section
           className={classes.search_container}
-          style={{ minHeight: '450px' }}
+          style={{ minHeight: '350px' }}
         >
           <div className={classes.filters_container}>
             <PokemonsFilters />

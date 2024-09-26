@@ -2,9 +2,7 @@ import classes from './PokemonCard.module.css';
 import { Card } from './UI/Card';
 import { PokemonTypes } from './PokemonTypes';
 
-
-export function PokemonCard ({pokemon}) {
-  
+export function PokemonCard({ pokemon }) {
   const imageSrc = pokemon.defaultImage
     ? pokemon.defaultImage
     : pokemon.secondaryImage;
@@ -17,11 +15,11 @@ export function PokemonCard ({pokemon}) {
         </div>
 
         <div className={classes.pokemon_image_container}>
-          <img
-            className={classes.pokemon_image}
-            src={imageSrc}
-            alt={`a picture of ${pokemon.name}`}
-          />
+            <img
+              className={classes.pokemon_image}
+              src={imageSrc}
+              alt={`a picture of ${pokemon.name}`}
+            />
         </div>
 
         <div className={classes.pokemon_name_container}>

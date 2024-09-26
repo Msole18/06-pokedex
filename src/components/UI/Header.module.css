@@ -13,13 +13,12 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 10px;
-  height: 150px;
   background: #ff0202; 
 }
 
 .logo {
-  width: 220px;
-  height: 100px;
+  width: 15%;
+  margin: 15px;
 }
 
 .form {
