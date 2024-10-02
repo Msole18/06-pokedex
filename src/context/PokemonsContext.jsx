@@ -24,7 +24,6 @@ export function PokemonsProvider({ children }) {
     loading,
     error,
   } = useFetchPokemon({ search, limit, offset });
-  console.log('context 1: ', { search}, {mappedPokemons});
 
   // Load More Click
   const handleLoadMore = () => {

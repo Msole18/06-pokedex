@@ -52,8 +52,7 @@ export const useFetchPokemon = ({ search, limit, offset}) => {
   }, []);
   
   const getSearchedPokemons = useCallback(({ search }) => {
-    console.log('getSearchedPokemons 1: ', { search });
-    if (search === '' || search === previousSearch.current) return console.log('getSearchedPokemons iF: ');
+    if (search === '' || search === previousSearch.current) return 
     setLoading(true);
     setError(null);
     previousSearch.current = search;

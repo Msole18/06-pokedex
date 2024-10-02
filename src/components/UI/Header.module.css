@@ -13,12 +13,14 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 10px;
-  background: #ff0202; 
+  background: #ff0202;
+  
 }
 
 .logo {
   width: 15%;
   margin: 15px;
+  margin-bottom: 15px; 
 }
 
 .form {
@@ -27,6 +29,8 @@
   align-items: center;
   gap: 10px;
   height: 45px;
+  margin-bottom: 15px; 
+  
 }
 
 .input {

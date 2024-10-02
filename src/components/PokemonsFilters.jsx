@@ -5,7 +5,7 @@ import { PokemonTypes } from './PokemonTypes';
 import { PokemonsContext } from '../context/PokemonsContext';
 import { useContext, useEffect, useRef, useState } from 'react';
 
-function TypesFilter({ types, selectedTypes, handleTypeClick }) {
+const TypesFilter = ({ types, selectedTypes, handleTypeClick }) => {
   return (
     <section className={classes.types_container}>
       <p>Pokemons Types:</p>
@@ -33,38 +33,67 @@ function TypesFilter({ types, selectedTypes, handleTypeClick }) {
   );
 }
 
-function SequencesFilter({ previousOffset, previousLimit, inputError }) {
+const SequencesFilter = ({ previousOffset, previousLimit, inputError }) => {
   return (
     <section className={classes.sequences_container}>
-      <h4>Pokemons Sequences: </h4>
-      <div className={classes.input_container}>
-        <p>From number: </p>
-        <input
-          style={{
-            border: '1px solid transparent',
-            borderColor: inputError ? 'red' : 'transparent',
-          }}
-          className={classes.input}
-          ref={previousOffset}
-          placeholder='1'
-          name='offsetInput'
-        />
-        <p>To number: </p>
-        <input
-          style={{
-            border: '1px solid transparent',
-            borderColor: inputError ? 'red' : 'transparent',
-          }}
-          className={classes.input}
-          ref={previousLimit}
-          placeholder='1276'
-          name='limitInput'
-        />
+      <p>Pokemons Sequences: </p>
+      <div className={classes.inputs_container}>
+        <div className={classes.offset}>
+          <p>From number: </p>
+          <input
+            style={{
+              border: '1px solid transparent',
+              borderColor: inputError ? 'red' : 'transparent',
+            }}
+            className={classes.input}
+            ref={previousOffset}
+            placeholder='1'
+            name='offsetInput'
+          />
+        </div>
+
+        <div className={classes.limit}>
+          <p>To number: </p>
+          <input
+            style={{
+              border: '1px solid transparent',
+              borderColor: inputError ? 'red' : 'transparent',
+            }}
+            className={classes.input}
+            ref={previousLimit}
+            placeholder='1276'
+            name='limitInput'
+          />
+        </div>
       </div>
       {inputError && <p className={classes.error}>{inputError}</p>}
     </section>
   );
 }
+
+const SubmitFiltersButtons = ({handleReset}) => {
+  return (
+    <section className={classes.buttons_container}>
+      <Button
+        className={classes.button_container}
+        type='submit'
+      >
+        <Icon
+          className={classes.icon}
+          name='search'
+        />
+        Search
+      </Button>
+      <Button
+        className={classes.button_container}
+        type='button'
+        onClick={handleReset}
+      >
+        Reset Search
+      </Button>
+    </section>
+  );
+};
 
 export function PokemonsFilters() {
   const {
@@ -148,9 +177,12 @@ export function PokemonsFilters() {
     previousOffset.current = offsetInput;
   };
 
-  useEffect(() => {
-    console.log('useEffect selectedTypes: ', selectedTypes);
-  }, [selectedTypes, limit, offset]);
+  const handleReset = () => {
+    setInputError('');
+    setSelectedTypes([]);
+    previousOffset.current = '';
+    previousLimit.current = ''
+  };
 
   return (
     <>
@@ -164,31 +196,14 @@ export function PokemonsFilters() {
           selectedTypes={selectedTypes}
           handleTypeClick={handleTypeClick}
         />
-        <SequencesFilter
+        <div className={classes.filters_container}>
+          <SequencesFilter
             previousOffset={previousOffset}
             previousLimit={previousLimit}
             inputError={inputError}
           />
-
-          <section className={classes.buttons_container}>
-            <Button
-              className={classes.button_container}
-              type='submit'
-            >
-              <Icon
-                className={classes.icon}
-                name='search'
-              />
-              Search
-            </Button>
-            <Button
-              className={classes.button_container}
-              type='button'
-              onClick={() => window.location.reload()}
-            >
-              Reset Search
-            </Button>
-          </section>
+          <SubmitFiltersButtons handleReset={handleReset} />
+        </div>
       </form>
     </>
   );
