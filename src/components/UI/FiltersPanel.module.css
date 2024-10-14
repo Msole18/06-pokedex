@@ -3,7 +3,6 @@
   flex-direction: column;
   justify-content: center;
   position: relative;
-  margin-bottom: 60px;
 }
 
  .search_container {
@@ -12,7 +11,6 @@
   align-content: center;
   width: 100%;
   background-color: #000000;
-  transition: height 0.3s ease-in-out; 
   overflow: visible;
 }
 
@@ -21,17 +19,15 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 15px;
+  gap: 10px;
   width: 100%;
   height: auto;
-  padding-top: 25px;
-
+  padding-top: 20px;
   overflow: hidden;
   background-color: #0f0f0fd8;
   box-shadow: inset 0 0 60px 10px rgba(72, 135, 202, 0.8); 
   overflow: visible; 
   min-height: max-content;
-  /* border: solid 2px blue; */
 }
 
 .button_container {
@@ -54,6 +50,8 @@
 .button_container:focus {
   box-shadow: 0 0 0 30px black; /* Mantener el box-shadow deseado al enfocar */
 }
+
+
 
 .icon {
   display: flex;

@@ -5,37 +5,43 @@ import { Button } from './Button';
 import { FiltersPanel } from './FiltersPanel';
 import { PokemonsContext } from '../../context/PokemonsContext';
 import { useContext } from 'react';
+import { Link } from 'react-router-dom';
 
 export function Header() {
-  
-  const { 
-    search, 
-    setSearch, 
-    getSearchedPokemons, 
-    error 
+  const {
+    search,
+    setSearch,
+    getSearchedPokemons,
+    error,
+    setFiltersHeight,
+    resetApp,
   } = useContext(PokemonsContext);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const newSearch = event.target.value;
     setSearch(newSearch);
-    console.log('handleSubmit 1: ', { search });
     getSearchedPokemons({ search });
   };
 
   const handleChange = (event) => {
     const newSearch = event.target.value;
-    setSearch(newSearch); 
+    setSearch(newSearch);
   };
 
   return (
     <div className={classes.container}>
       <header className={classes.header}>
-        <img
+        <Link
+          to='/'
           className={classes.logo}
-          src={pokeLogo}
-          alt='pokemon logo'
-        />
+          onClick={resetApp}
+        >
+          <img
+            src={pokeLogo}
+            alt='pokemon logo'
+          />
+        </Link>
         <form
           className={classes.form}
           onSubmit={handleSubmit}
@@ -64,7 +70,8 @@ export function Header() {
           </Button>
         </form>
       </header>
-      <FiltersPanel />
+
+      <FiltersPanel setFiltersHeight={setFiltersHeight} />
     </div>
   );
 }

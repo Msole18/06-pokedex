@@ -4,7 +4,7 @@ main {
   justify-content: center;
   align-items: center;
   gap: 15px;
-  padding-top: 230px;
+  margin: 0 auto;
   margin-bottom: 10px;
   width: 80%;
 }
@@ -12,6 +12,7 @@ main {
 ul, li {
   list-style: none;
 }
+
 .loader {
   position: fixed;
   top: 50%;
@@ -26,8 +27,13 @@ ul, li {
       1fr
     )
   );
-  gap: 10px;
+  gap: 1rem;
   width: 80%;
+}
+
+.link {
+  text-decoration: none;
+  color: inherit; 
 }
 
 .selection {

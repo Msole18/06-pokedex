@@ -1,0 +1,26 @@
+.label_container {
+  margin: 10px 0;
+}
+
+.name_label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+.progress_bar {
+  width: 100%;
+  background-color: #fff; /* Color rojo */
+  border-radius: 50px;
+  height: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress_bar_fill {
+  background-color: #ff0202d2; /* Color rojo */
+  height: 100%;
+  border-radius: 50px;
+  transition: width 0.5s ease-in-out;
+}

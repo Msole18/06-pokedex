@@ -1,0 +1,94 @@
+main {
+  display:flex;
+  padding-top: 220px;
+  border: solid 2px blue;
+}
+
+.pokemon_section {
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  border: solid 2px rgb(28, 124, 4);
+}
+
+.pokemon_card {
+  min-width: 300px;
+}
+
+.pokemon_card:hover {
+  transform: none;
+}
+
+.button {
+  height: max-content;
+}
+
+.info_container {
+  display: flex;
+  width: 100%;
+  gap: 1rem;
+  border: solid 2px red;
+}
+
+.card {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 0.5rem;
+}
+
+.card:hover {
+  transform: none;
+}
+
+.cards {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  /* border: solid 2px red; */
+}
+.cards_section {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: #efefef;
+  border: solid 1px #1d1d1d;
+  gap: 1rem;
+}
+
+.cards_name_container {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  max-width: fit-content;
+  max-height: fit-content;
+  padding: 5px;
+  background-color: #fff;
+  border-radius: 0 0 5px 0;
+  border-bottom: solid 1px #1d1d1d;
+  border-right : solid 1px #1d1d1d;
+}
+
+.abilities{
+  display: flex;
+  justify-content: center;
+  gap:1rem;
+}
+
+.stats {
+  width: 100%;
+}
+
+.evolution_card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+
+
+

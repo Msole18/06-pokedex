@@ -1,17 +1,25 @@
-import classes from './App.module.css';
-import { Header } from './components/UI/Header';
-import { Pokemons } from './components/Pokemons';
-import { PokemonsProvider } from './context/PokemonsContext';
+import { Route, Routes } from 'react-router-dom';
+import { HomePage } from './pages/HomePage';
+import { PokemonPage } from './pages/PokemonPage';
+import { PageNotFound } from './pages/PageNotFound';
 
 function App() {
 
   return (
-    <div className={classes.app}>
-      <PokemonsProvider>
-        <Header />
-        <Pokemons />
-      </PokemonsProvider>
-    </div>
+      <Routes>
+        <Route
+          path='/'
+          element={<HomePage />}
+        />
+        <Route
+          path='/pokemon/:id'
+          element={<PokemonPage />}
+        />
+        <Route
+          path='*'
+          element={<PageNotFound />}
+        />
+      </Routes>
   );
 }
 

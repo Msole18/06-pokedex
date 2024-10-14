@@ -3,7 +3,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1000; /* Para asegurarse de que quede por encima de otros elementos */
+  z-index: 1000; 
   border: none;
 }
 
@@ -14,7 +14,6 @@
   flex-wrap: wrap;
   gap: 10px;
   background: #ff0202;
-  
 }
 
 .logo {

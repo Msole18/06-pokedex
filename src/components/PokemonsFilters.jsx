@@ -186,7 +186,7 @@ export function PokemonsFilters() {
 
   return (
     <>
-      <h2>Advanced Search</h2>
+      <h2 className={classes.title} >Advanced Search</h2>
       <form
         className={classes.form}
         onSubmit={handleSubmit}

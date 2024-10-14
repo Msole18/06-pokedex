@@ -21,7 +21,6 @@
 .pokemon_image_container,
 .pokemon_id_container,
 .pokemon_name_container {
-  border: solid 1px #000000c2;
   border: solid 1px #1d1d1d
 }
 
@@ -52,7 +51,7 @@
   overflow: hidden;
   max-width: fit-content;
   max-height: fit-content;
-  padding: 8px;
+  padding: 5px;
   color: #1d1d1d;
   font-size: 14px;
   font-weight: 500;
