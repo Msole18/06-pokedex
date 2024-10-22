@@ -1,14 +1,17 @@
 import classes from './PokemonsFilters.module.css';
+import advancedSearch from '../assets/advanced-search.png';
 import { Button } from './UI/Button';
-import { Icon } from './UI/Icon';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { PokemonTypes } from './PokemonTypes';
 import { PokemonsContext } from '../context/PokemonsContext';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
+import { useValidation } from '../hooks/useValidation';
 
 const TypesFilter = ({ types, selectedTypes, handleTypeClick }) => {
   return (
     <section className={classes.types_container}>
-      <p>Pokemons Types:</p>
+      <h3>Pokemons Types:</h3>
       <ul className={classes.types_list}>
         {types.map((type) => (
           <li key={type}>
@@ -33,13 +36,13 @@ const TypesFilter = ({ types, selectedTypes, handleTypeClick }) => {
   );
 }
 
-const SequencesFilter = ({ previousOffset, previousLimit, inputError }) => {
+const SequencesFilter = ({ previousOffset, previousLimit, inputError, handleInputChange, offsetValue, limitValue,  }) => {
   return (
     <section className={classes.sequences_container}>
-      <p>Pokemons Sequences: </p>
+      <h3>Pokemons Sequences: </h3>
       <div className={classes.inputs_container}>
         <div className={classes.offset}>
-          <p>From number: </p>
+          <span>From number: </span>
           <input
             style={{
               border: '1px solid transparent',
@@ -47,13 +50,15 @@ const SequencesFilter = ({ previousOffset, previousLimit, inputError }) => {
             }}
             className={classes.input}
             ref={previousOffset}
+            value={offsetValue}
             placeholder='1'
             name='offsetInput'
+            onChange={(e) => handleInputChange(e, 'offset')}
           />
         </div>
 
         <div className={classes.limit}>
-          <p>To number: </p>
+          <span>To number: </span>
           <input
             style={{
               border: '1px solid transparent',
@@ -61,12 +66,21 @@ const SequencesFilter = ({ previousOffset, previousLimit, inputError }) => {
             }}
             className={classes.input}
             ref={previousLimit}
-            placeholder='1276'
+            value={limitValue}
+            placeholder='1000'
             name='limitInput'
+            onChange={(e) => handleInputChange(e, 'limit')}
           />
         </div>
       </div>
-      {inputError && <p className={classes.error}>{inputError}</p>}
+      {inputError && (
+        <p className={classes.error}>
+          <span role="img" aria-label="error" style={{ fontSize: '15px' }}>
+            ⚠️
+          </span>
+          {inputError}
+        </p>
+       )} 
     </section>
   );
 }
@@ -78,9 +92,9 @@ const SubmitFiltersButtons = ({handleReset}) => {
         className={classes.button_container}
         type='submit'
       >
-        <Icon
-          className={classes.icon}
-          name='search'
+        <FontAwesomeIcon
+          icon={faMagnifyingGlass}
+          size='xl'
         />
         Search
       </Button>
@@ -105,13 +119,21 @@ export function PokemonsFilters() {
     setResponsePokemons,
     selectedTypes,
     setSelectedTypes,
+  
   } = useContext(PokemonsContext);
-  const [inputError, setInputError] = useState('');
+
+  const { inputError, inputFiltersValidation } = useValidation(); 
+
+  // const [inputError, setInputError] = useState('');
+  const [offsetValue, setOffsetValue] = useState('');  
+  const [limitValue, setLimitValue] = useState(''); 
   const previousLimit = useRef(limit);
   const previousOffset = useRef(offset);
 
   const pokemonsTypes = types
-    .filter((type) => type !== 'stellar' && type !== 'unknown')
+    .filter(
+      (type) => type !== 'stellar' && type !== 'shadow' && type !== 'unknown'
+    )
     .sort((a, b) => a.localeCompare(b));
 
   // Handle type click
@@ -121,22 +143,6 @@ export function PokemonsFilters() {
         ? prevSelectedTypes.filter((existingType) => existingType !== type)
         : [...prevSelectedTypes, type]
     );
-  };
-
-  const validateInputs = (offset, limit) => {
-    if (isNaN(offset) || isNaN(limit)) {
-      return 'Values must be numbers';
-    }
-
-    if (offset < 1 || offset > 1276 || limit < 1 || limit > 1276) {
-      return 'Values must be between 1 and 1276';
-    }
-
-    if (offset > limit) {
-      return 'From number must be less than To number';
-    }
-
-    return ''; // No errors
   };
 
   // Form submission function
@@ -151,12 +157,8 @@ export function PokemonsFilters() {
     const limitNum = parseInt(limitInput, 10);
 
     // Perform validation
-    const validationError = validateInputs(offsetNum, limitNum);
-
-    if (validationError) {
-      setInputError(validationError);
-      return;
-    }
+    const validationError = inputFiltersValidation(offsetNum, limitNum);
+    if (!validationError) return;
 
     if (
       limitInput === previousLimit.current &&
@@ -172,21 +174,36 @@ export function PokemonsFilters() {
     setLimit(newLimit);
     setOffset(newOffset);
 
-    setInputError('');
+
     previousLimit.current = limitInput;
     previousOffset.current = offsetInput;
   };
 
+
+  const handleInputChange = (event, field) => {
+    const value = event.target.value;
+    if (field === 'offset') {
+      setOffsetValue(value);
+    } else if (field === 'limit') {
+      setLimitValue(value);
+    }
+  };
+
   const handleReset = () => {
-    setInputError('');
     setSelectedTypes([]);
-    previousOffset.current = '';
-    previousLimit.current = ''
+    setOffsetValue('');  
+    setLimitValue(''); 
+    previousOffset.current = 1; 
+    previousLimit.current = 1000; 
   };
 
   return (
     <>
-      <h2 className={classes.title} >Advanced Search</h2>
+      <img
+        className={classes.title}
+        src={advancedSearch}
+        alt='pokemon logo'
+      />
       <form
         className={classes.form}
         onSubmit={handleSubmit}
@@ -201,6 +218,9 @@ export function PokemonsFilters() {
             previousOffset={previousOffset}
             previousLimit={previousLimit}
             inputError={inputError}
+            handleInputChange={handleInputChange}
+            offsetValue={offsetValue}
+            limitValue={limitValue}
           />
           <SubmitFiltersButtons handleReset={handleReset} />
         </div>

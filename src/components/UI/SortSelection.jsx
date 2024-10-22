@@ -5,6 +5,7 @@ export function SortSelection({ onChange }) {
     <section className={classes.selection}>
       <label htmlFor='dropdown'>Sort Pokemon by:</label>
       <select
+        className={classes.select}
         id='dropdown'
         name='pokemon'
         onChange={onChange}

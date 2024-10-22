@@ -1,0 +1,38 @@
+.footer {
+  background-color: #282c34;
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.footerContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap:1rem;
+}
+
+.footerContent p {
+  margin: 0;
+}
+
+.socialLinks {
+  margin-top: 10px;
+}
+
+.socialLinks a {
+  color: white;
+  margin: 0 10px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.socialLinks a:hover {
+  color: #61dafb;
+}

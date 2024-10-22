@@ -1,19 +1,19 @@
 .label_container {
-  margin: 10px 0;
+  margin: 1rem 0;
 }
 
 .name_label {
   display: flex;
   justify-content: space-between;
-  font-size: 1rem;
-  margin-bottom: 5px;
+  font-size: 1.12rem;
+  margin-bottom: 0.5rem;
 }
 
 .progress_bar {
   width: 100%;
   background-color: #fff; /* Color rojo */
   border-radius: 50px;
-  height: 10px;
+  height: 0.8rem;
   overflow: hidden;
   position: relative;
 }

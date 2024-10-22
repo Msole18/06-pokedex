@@ -1,43 +1,84 @@
+import React, { useEffect, useState } from 'react';
 import classes from './Evolutions.module.css';
+import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAnglesRight, faAnglesDown } from '@fortawesome/free-solid-svg-icons';
 
-const Evolutions = () => {
+const EvolutionCards = ({ pokemon }) => {
+
+  const imageSrc = pokemon.defaultImage
+    ? pokemon.defaultImage
+    : pokemon.secondaryImage;
+
   return (
-    <div className={classes.evolution_chain}>
-      {/* Bulbasaur */}
-      <div className={classes.evolution_item}>
-        <div className={classes.pokemon_image}>
+    <div className={classes.evolution_item}>
+      <Link
+        to={`/pokemon/${pokemon.evolutionID}`}
+        className={classes.link}
+      >
+        <div className={classes.pokemon_image_container}>
           <img
-            src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png'
-            alt='Bulbasaur'
+            className={classes.pokemon_image}
+            src={imageSrc}
+            alt={`a picture of ${pokemon.name}`}
+            title={`${pokemon.name}`}
           />
         </div>
-      </div>
-
-      <div className={classes.arrow}>➤</div>
-
-      {/* Ivysaur */}
-      <div className={classes.evolution_item}>
-        <div className={classes.pokemon_image}>
-          <img
-            src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png'
-            alt='Ivysaur'
-          />
-        </div>
-      </div>
-
-      <div className={classes.arrow}>➤</div>
-
-      {/* Venusaur */}
-      <div className={classes.evolution_item}>
-        <div className={classes.pokemon_image}>
-          <img
-            src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png'
-            alt='Venusaur'
-          />
-        </div>
-      </div>
+      </Link>
+      <Link
+        to={`/pokemon/${pokemon.evolutionID}`}
+        className={classes.link}
+      >
+        <h4>{`#${pokemon.evolutionID}  ${pokemon.name}`}</h4>
+      </Link>
     </div>
   );
 };
 
-export default Evolutions;
+const NoEvolutions = ({ error }) => {
+  return <h2>{error ? error : 'This pokemon has no evolution chain'}</h2>;
+};
+
+export function Evolutions({ pokemons }) {
+   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+   // Escucha los cambios de tamaño de la ventana y ajusta el estado
+   useEffect(() => {
+     const handleResize = () => {
+       setIsMobile(window.innerWidth <= 768);
+     };
+
+     window.addEventListener('resize', handleResize);
+     return () => {
+       window.removeEventListener('resize', handleResize);
+     };
+   }, []);
+
+  const hasEvolution = pokemons.evolutions?.length <= 1;
+  return (
+    <div className={classes.evolution_container}>
+      {hasEvolution ? (
+        <NoEvolutions />
+      ) : (
+        <ul className={classes.evolution_chain}>
+          {pokemons.evolutions.map((pokemon, index) => (
+            <React.Fragment key={pokemon.evolutionID}>
+              <li>
+                <EvolutionCards pokemon={pokemon} />
+              </li>
+              {index < pokemons.evolutions.length - 1 && (
+                <li className={classes.arrow_container}>
+                  <FontAwesomeIcon
+                    className={classes.arrow}
+                    icon={isMobile ? faAnglesDown : faAnglesRight}
+                    size='2xl'
+                  />
+                </li>
+              )}
+            </React.Fragment>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}

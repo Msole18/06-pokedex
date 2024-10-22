@@ -1,16 +1,13 @@
+import { Header } from '../components/UI/Header';
+import { NotFound } from '../components/NotFound';
+import { Footer } from '../components/UI/Footer';
 
-
-export function PageNotFound() {
-  // const [filtersHeight, setFiltersHeight] = useState(0);
+export function PageNotFound()  {
   return (
     <>
-      <h1
-        style={{
-          paddingTop: `200px`,
-        }}
-      >
-        Page Not Found
-      </h1>
+      <Header />
+      <NotFound />
+      <Footer />
     </>
   );
-}
+};

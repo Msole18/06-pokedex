@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 const POKEMONS_TYPES_ENDPOINT = `https://pokeapi.co/api/v2/type/`;
@@ -7,18 +7,20 @@ const SEARCHED_POKEMON_ENDPOINT = `https://pokeapi.co/api/v2/pokemon/`;
 
 export const useFetchPokemon = ({ search, limit, offset}) => {
   const [responsePokemons, setResponsePokemons] = useState([]);
+  const [pokemonDescription, setPokemonDescription] = useState([]);
   const [evolutionChain, setEvolutionChain] = useState([]);
   const [types, setTypes] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [loadingEvolutions, setLoadingEvolutions] = useState(false);
+  const [fetchError, setFetchError] = useState(null);
   const previousSearch = useRef({ search });
   const previousLimit = useRef({ limit });
   const previousOffset = useRef({ offset });
-  const previousEvoChain = useRef('');
+  const previousEvoChain = useRef([]);
 
   const getPokemonsTypes = () => {
     setLoading(true);
-    setError(null);
+    setFetchError(null);
     previousSearch.current = search;
     fetch(`${POKEMONS_TYPES_ENDPOINT}`)
       .then((res) => res.json())
@@ -27,8 +29,8 @@ export const useFetchPokemon = ({ search, limit, offset}) => {
         setTypes(typeNames);
       })
       .catch((error) => {
-        console.error('Error in fetching pokemons:', error);
-        setError(error.message);
+        console.error('Error in fetching getPokemonsTypes:', error);
+        setFetchError(error.message);
         setTypes([]);
       })
       .finally(() => {
@@ -47,7 +49,7 @@ export const useFetchPokemon = ({ search, limit, offset}) => {
       }
 
       setLoading(true);
-      setError(null);
+      setFetchError(null);
 
       previousLimit.current = limit;
       previousOffset.current = offset;
@@ -73,13 +75,13 @@ export const useFetchPokemon = ({ search, limit, offset}) => {
               });
             })
             .catch((error) => {
-              console.error('Error fetching individual pokemons:', error);
-              setError(error.message);
+              console.error('Error fetching individual getPokemons:', error);
+              setFetchError(error.message);
             });
         })
         .catch((error) => {
-          console.error('Error in fetching pokemons list:', error);
-          setError(error.message);
+          console.error('Error in fetching pokemons list getPokemons:', error);
+          setFetchError(error.message);
           setResponsePokemons([]);
         })
         .finally(() => {
@@ -92,10 +94,10 @@ export const useFetchPokemon = ({ search, limit, offset}) => {
   const getSearchedPokemons = useCallback(({ search }) => {
     // console.log('getSearchedPokemons');
     if (search === '' || search === previousSearch.current)
-      return console.log('return getSearchedPokemons');
+      return 
 
     setLoading(true);
-    setError(null);
+    setFetchError(null);
 
     previousSearch.current = search;
 
@@ -105,105 +107,87 @@ export const useFetchPokemon = ({ search, limit, offset}) => {
         setResponsePokemons([data]);
       })
       .catch((error) => {
-        console.error('Error in fetching pokemons:', error);
-        setError(error.message);
+        console.error('Error in fetching  getSearchedPokemons:', error);
+        setFetchError(error.message);
         setResponsePokemons([]);
       })
       .finally(() => {
         setLoading(false);
       });
+      
   }, []);
 
-  // const getEvolutionChain = useCallback(({ evolutionChain }) => {
-  //   // console.log('getEvolutionChain', evolutionChain);
-  //   if (evolutionChain === '' || evolutionChain === previousEvoChain.current)
-  //     return; //console.log('return getEvolutionChain');
-
-  //   setLoading(true);
-  //   setError(null);
-
-  //   previousEvoChain.current = evolutionChain;
-
-  //   fetch(`${evolutionChain}`)
-  //     .then((res) => res.json())
-  //     .then((speciesData) => {
-  //       const evolutionChainUrl = speciesData.evolution_chain.url;
-  //       return fetch(evolutionChainUrl);
-  //     })
-  //       .then((res) => res.json())
-  //       .then((evolutionData) => {
-  //         // console.log('Evolution Chain Data:', evolutionData.chain);
-  //         const sortedChain = processEvolutionChain(evolutionData.chain);
-  //         // console.log('sortedChain:', sortedChain);
-  //         return setEvolutionChain(sortedChain);
-  //       })
-  //     .catch((error) => {
-  //       console.error('Error in fetching pokemons:', error);
-  //       setError(error.message);
-  //       setResponsePokemons([]);
-  //     })
-  //     .finally(() => {
-  //       setLoading(false);
-  //     });
-  // }, []);
   const getEvolutionChain = useCallback(({ evolutionChain }) => {
     if (evolutionChain === '' || evolutionChain === previousEvoChain.current) {
       return;
     }
 
-    setLoading(true);
-    setError(null);
+    setLoadingEvolutions(true);
+    setFetchError(null);
 
     previousEvoChain.current = evolutionChain;
 
     fetch(`${evolutionChain}`)
       .then((res) => res.json())
       .then((speciesData) => {
+        const englishFlavorText = speciesData.flavor_text_entries.find(
+          (text) => text.language.name === 'en'
+        );
+        const flavorText = englishFlavorText
+          ? englishFlavorText.flavor_text
+          : null;
+
+        setPokemonDescription({
+          flavorText: flavorText,
+          habitat: speciesData.habitat ? speciesData.habitat.name : null,
+        });
         const evolutionChainUrl = speciesData.evolution_chain.url;
         return fetch(evolutionChainUrl);
       })
-      .then((resChain) => resChain.json())
-      .then((evolutionData) => {
-        return processEvolutionChain(evolutionData.chain); // Este sigue siendo el problema
-      })
-      .then((sortedChain) => {
-        setEvolutionChain(sortedChain); // Asegúrate de que el resultado de `processEvolutionChain` se pase a setEvolutionChain
-      })
+        .then((resChain) => resChain.json())
+        .then((evolutionData) => {
+          return processEvolutionChain(evolutionData.chain); 
+        })
+          .then((sortedChain) => {
+            setEvolutionChain(sortedChain); 
+          })
       .catch((error) => {
-        console.error('Error in fetching pokemons:', error);
-        setError(error.message);
-        setResponsePokemons([]); // Limpiar en caso de error
+        console.error('Error in fetching getEvolutionChain:', error);
+        setFetchError(error.message);
+        setResponsePokemons([]); 
       })
       .finally(() => {
-        setLoading(false); // Detener el loading
+        setLoadingEvolutions(false); 
       });
+
   }, []);
 
   
   const getEvolutionImage = useCallback(async (pokemonName) => {
 
     setLoading(true);
-    setError(null);
+    setFetchError(null);
 
     try {
       const response = await fetch(`${SEARCHED_POKEMON_ENDPOINT}${pokemonName}`);
       const data = await response.json();
 
       return {
+        evolutionID: data.id,
         defaultImage: data.sprites.other.dream_world.front_default,
         secondaryImage: data.sprites.other['official-artwork'].front_default,
       };
     } catch (error) {
-      console.error('Error in fetching pokemons:', error);
-      setError(error.message);
-      return { defaultImage: null, secondaryImage: null }; // Devuelve valores nulos en caso de error
+      console.error('Error in fetching getEvolutionImage:', error);
+      setFetchError(error.message);
+      return { defaultImage: null, secondaryImage: null };
     } finally {
       setLoading(false);
     }
+
   }, []);
 
   const processEvolutionChain = async (data) => {
-    console.log('processEvolutionChain:');
     const evolutions = [];
 
     const processSpecies = async (data) => {
@@ -244,6 +228,8 @@ export const useFetchPokemon = ({ search, limit, offset}) => {
     stats: pokemon.stats,
     abilities: pokemon.abilities,
     speciesUrl: pokemon.species.url,
+    habitat: pokemonDescription.habitat, 
+    flavorText: pokemonDescription.flavorText, 
     evolutions: evolutionChain,
   }));
 
@@ -266,6 +252,8 @@ export const useFetchPokemon = ({ search, limit, offset}) => {
     types,
     setTypes,
     loading,
-    error,
+    loadingEvolutions,
+    setLoadingEvolutions,
+    fetchError,
   };
 };

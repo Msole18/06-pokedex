@@ -1,0 +1,72 @@
+.sort_selection {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  margin-bottom: 1rem;
+  margin-top: 200px;
+  width: 80%;
+}
+
+.main {
+  display:flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  gap: 1.5rem;
+  margin: 0 auto;
+  margin-bottom: 2rem;
+  width: 80%;
+  min-height: calc(100vh - 200px);
+}
+
+.pokemons_list {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit, minmax(
+      180px, 
+      1fr
+    )
+  );
+  gap: 1rem;
+  width: 80%;
+  align-items: center;
+  justify-items: center;
+}
+
+.button_card {
+  padding: 0.5rem;
+}
+
+.button {
+  display: flex;
+  flex-direction: column;
+  height: max-content;
+}
+
+.loader {
+  position: absolute;  
+  left: 48.5%;
+  top: 55%;
+}
+
+.link {
+  text-decoration: none;
+  color: inherit; 
+}
+
+@media (width <= 768px ) {
+  .sort_selection {
+    align-items:flex-end;
+    width: 95%;
+    min-width: 30%;
+    padding-right: 1rem;
+    margin-top: 260px;
+  }
+
+  .main {
+    width: 95%; 
+    min-width: 30%;
+  }
+}

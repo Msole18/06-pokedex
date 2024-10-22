@@ -1,6 +1,7 @@
 import classes from './FiltersPanel.module.css';
 import { Button } from './Button';
-import { Icon } from './Icon';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAnglesUp, faAnglesDown } from '@fortawesome/free-solid-svg-icons';
 import { PokemonsFilters } from '../PokemonsFilters';
 import { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -12,8 +13,7 @@ export function FiltersPanel({ setFiltersHeight }) {
 
   // Get the current page or location
   const location = useLocation();
-  const isPokemonPage = location.pathname.startsWith('/pokemon/'); // check if the currente page is the PokemonPage
-
+  const isHomePage = location.pathname === '/'; // check if the currente page is the HomePage
 
   useEffect(() => {
     if (filter && searchContainerRef.current) {
@@ -37,7 +37,7 @@ export function FiltersPanel({ setFiltersHeight }) {
           style={{ minHeight: 'max-content' }}
           ref={searchContainerRef}
         >
-          <div className={classes.filters_container}>como
+          <div className={classes.filters_container}>
             <PokemonsFilters />
           </div>
         </section>
@@ -51,14 +51,11 @@ export function FiltersPanel({ setFiltersHeight }) {
       <Button
         className={classes.button_container}
         onClick={handleClick}
-        title={'Avanced Search'}
-        disabled={isPokemonPage}
+        title={!isHomePage ? 'Advanced Search' : null}
+        disabled={!isHomePage} // Disable the button if not on the Home page
       >
-        {!isPokemonPage && (
-          <Icon
-            className={classes.icon}
-            name={filter ? 'expand_up' : 'expand_down'}
-          />
+        {isHomePage && (
+          <FontAwesomeIcon icon={filter ? faAnglesUp : faAnglesDown } /> 
         )}
       </Button>
     </div>

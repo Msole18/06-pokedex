@@ -19,10 +19,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 1rem;
   width: 100%;
   height: auto;
-  padding-top: 20px;
   overflow: hidden;
   background-color: #0f0f0fd8;
   box-shadow: inset 0 0 60px 10px rgba(72, 135, 202, 0.8); 
@@ -48,18 +47,44 @@
 }
 
 .button_container:focus {
-  box-shadow: 0 0 0 30px black; /* Mantener el box-shadow deseado al enfocar */
+  box-shadow: 0 0 0 30px black;
+}
+
+.button_container:disabled {
+  cursor: auto; 
 }
 
 
+@media (width <= 900px) {
+  .search_container{
+    height: '35px'
+  }
+  .button_container {
+    height: 55px;
+    width: 55px;
+    box-shadow: 0 0 0 25px black;
+  }
 
-.icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 80%;
+  .button_container:focus {
+    box-shadow: 0 0 0 25px black;
+  }
+
 }
 
+@media (width <= 768px) {
+  .search_container{
+    height: '10px'
+  }
+  .button_container {
+    height: 50px;
+    width: 50px;
+    box-shadow: 0 0 0 20px black;
+  }
 
+  .button_container:focus {
+    box-shadow: 0 0 0 20px black;
+  }
+
+} 
 
 

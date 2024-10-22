@@ -1,6 +1,7 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useState } from 'react';
 import { useFetchPokemon } from '../hooks/useFechtPokemon';
 import { useSort } from '../hooks/useSort';
+import { useLocation } from 'react-router-dom';
 
 
 export const PokemonsContext = createContext();
@@ -12,6 +13,9 @@ export function PokemonsProvider({ children }) {
   const [offset, setOffset] = useState(0);
   const [selectedTypes, setSelectedTypes] = useState([]);
   const [filtersHeight, setFiltersHeight] = useState(0);
+ 
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   const {
     responsePokemons,
@@ -24,27 +28,29 @@ export function PokemonsProvider({ children }) {
     types,
     setTypes,
     loading,
-    error,
+    fetchError,
   } = useFetchPokemon({ search, limit, offset });
-  // console.log('mappedPokemons', { mappedPokemons });
 
   const filteredTypes = mappedPokemons.filter((pokemon) =>
     pokemon.type.some((typeObj) => selectedTypes.includes(typeObj.type.name))
   );
-
+ 
   //Automatic search when typing
-  const filteredPokemon = search
-    ? mappedPokemons.filter(
-        (pokemon) =>
-          pokemon.name.toLowerCase().includes(search.toLowerCase()) ||
-          pokemon.id.toString().includes(search)
-      )
-    : mappedPokemons;
+  const filteredPokemon =
+    isHomePage && search
+      ? mappedPokemons.filter(
+          (pokemon) =>
+            pokemon.name.toLowerCase().includes(search.toLowerCase()) ||
+            pokemon.id.toString().includes(search)
+        )
+      : mappedPokemons;
+  console.log('filteredPokemon', filteredPokemon);
 
+ 
   const hasFilteredTypes = selectedTypes.length > 0;
 
   const finalPokemons = hasFilteredTypes ? filteredTypes : filteredPokemon;
-  // console.log('finalPokemons: ', finalPokemons)
+
   // Sort Pokemons
   const { sortedPokemons, setSortSelection } = useSort(finalPokemons);
   // console.log('sortedPokemons: ', sortedPokemons);
@@ -52,7 +58,6 @@ export function PokemonsProvider({ children }) {
   // Load More Click
   const handleLoadMore = () => {
     setOffset((prevOffset) => prevOffset + MINIMUM_POKEMONS_FOR_LOAD_MORE);
-    setResponsePokemons((prevPokemons) => [...prevPokemons, ...mappedPokemons]);
   };
 
   const resetApp = () => {
@@ -63,6 +68,7 @@ export function PokemonsProvider({ children }) {
     setSelectedTypes([]);
     setResponsePokemons([]);
     getPokemons(limit, offset, true);
+ 
   };
 
   return (
@@ -90,7 +96,7 @@ export function PokemonsProvider({ children }) {
         offset,
         setOffset,
         loading,
-        error,
+        fetchError,
         finalPokemons,
         sortedPokemons,
         setSortSelection,
