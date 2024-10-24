@@ -11,7 +11,7 @@ This project was developed as part of my learning process in React and front-end
 -  [Contributions](#contributions)
 -  [License](#license)
 
-## Uso
+## Usage
 
 Once the application is up and running, users will be able to:
 
@@ -28,7 +28,9 @@ Once the application is up and running, users will be able to:
 This project uses the following technologies:
 
 **React:** Main library to build the user interface.
+
 **CSS Modules:** To style the components in isolation.
+
 **PokéAPI:** API used to obtain the Pokémon data.
 
 ## Contributions
