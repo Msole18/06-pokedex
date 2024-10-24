@@ -67,7 +67,7 @@ const SequencesFilter = ({ previousOffset, previousLimit, inputError, handleInpu
             className={classes.input}
             ref={previousLimit}
             value={limitValue}
-            placeholder='1000'
+            placeholder={MAXIMUM_POKEMONS_FOR_LOAD_MORE}
             name='limitInput'
             onChange={(e) => handleInputChange(e, 'limit')}
           />
@@ -119,7 +119,6 @@ export function PokemonsFilters() {
     setResponsePokemons,
     selectedTypes,
     setSelectedTypes,
-  
   } = useContext(PokemonsContext);
 
   const { inputError, inputFiltersValidation } = useValidation(); 
@@ -194,7 +193,7 @@ export function PokemonsFilters() {
     setOffsetValue('');  
     setLimitValue(''); 
     previousOffset.current = 1; 
-    previousLimit.current = 1000; 
+    previousLimit.current = MAXIMUM_POKEMONS_FOR_LOAD_MORE; 
   };
 
   return (

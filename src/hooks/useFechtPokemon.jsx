@@ -1,4 +1,4 @@
-
+import { NUMBER_OF_POKEMONS_FOR_LOAD_MORE } from '../context/PokemonsContext'
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 const POKEMONS_TYPES_ENDPOINT = `https://pokeapi.co/api/v2/type/`;
@@ -29,7 +29,6 @@ export const useFetchPokemon = ({ search, limit, offset}) => {
         setTypes(typeNames);
       })
       .catch((error) => {
-        console.error('Error in fetching getPokemonsTypes:', error);
         setFetchError(error.message);
         setTypes([]);
       })
@@ -39,7 +38,7 @@ export const useFetchPokemon = ({ search, limit, offset}) => {
   };
 
   const getPokemons = useCallback(
-    (limit = 18, offset = 0, forceReload = false) => {
+    (limit = NUMBER_OF_POKEMONS_FOR_LOAD_MORE, offset = 0, forceReload = false) => {
       if (
         !forceReload &&
         limit === previousLimit.current &&
@@ -55,8 +54,16 @@ export const useFetchPokemon = ({ search, limit, offset}) => {
       previousOffset.current = offset;
 
       fetch(`${POKEMON_ENDPOINT}?limit=${limit}&offset=${offset}`)
-        .then((res) => res.json())
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error(`Error in the server response: ${res.status}`);
+          }
+          return res.json();
+        })
         .then((data) => {
+          if (data.results.length === 0) {
+            throw new Error('No pokemon found');  
+          }
           const pokemonPromises = data.results.map((pokemon) =>
             fetch(pokemon.url).then((res) => res.json())
           );
@@ -75,12 +82,10 @@ export const useFetchPokemon = ({ search, limit, offset}) => {
               });
             })
             .catch((error) => {
-              console.error('Error fetching individual getPokemons:', error);
               setFetchError(error.message);
             });
         })
         .catch((error) => {
-          console.error('Error in fetching pokemons list getPokemons:', error);
           setFetchError(error.message);
           setResponsePokemons([]);
         })
@@ -92,7 +97,6 @@ export const useFetchPokemon = ({ search, limit, offset}) => {
   );
 
   const getSearchedPokemons = useCallback(({ search }) => {
-    // console.log('getSearchedPokemons');
     if (search === '' || search === previousSearch.current)
       return 
 
@@ -102,12 +106,16 @@ export const useFetchPokemon = ({ search, limit, offset}) => {
     previousSearch.current = search;
 
     fetch(`${SEARCHED_POKEMON_ENDPOINT}${search}`)
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`Error: ${res.status} - Pokémon not found`);
+        }
+        return res.json();
+      })
       .then((data) => {
         setResponsePokemons([data]);
       })
       .catch((error) => {
-        console.error('Error in fetching  getSearchedPokemons:', error);
         setFetchError(error.message);
         setResponsePokemons([]);
       })
@@ -152,7 +160,6 @@ export const useFetchPokemon = ({ search, limit, offset}) => {
             setEvolutionChain(sortedChain); 
           })
       .catch((error) => {
-        console.error('Error in fetching getEvolutionChain:', error);
         setFetchError(error.message);
         setResponsePokemons([]); 
       })
@@ -178,7 +185,6 @@ export const useFetchPokemon = ({ search, limit, offset}) => {
         secondaryImage: data.sprites.other['official-artwork'].front_default,
       };
     } catch (error) {
-      console.error('Error in fetching getEvolutionImage:', error);
       setFetchError(error.message);
       return { defaultImage: null, secondaryImage: null };
     } finally {
@@ -255,5 +261,6 @@ export const useFetchPokemon = ({ search, limit, offset}) => {
     loadingEvolutions,
     setLoadingEvolutions,
     fetchError,
+    setFetchError
   };
 };

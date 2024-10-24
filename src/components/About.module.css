@@ -7,14 +7,9 @@
   padding: 1rem;
 }
 
-.about{
+.about {
   display: grid;
-  grid-template-columns: repeat(
-    auto-fit, minmax(
-      100px, 
-      1fr
-    )
-  );
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   gap: 1rem;
   width: 100%;
 }
@@ -30,7 +25,6 @@
   border-radius: 10px;
   background-color: #fff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-  /* max-width: min-content; */
 }
 
 .info {
@@ -43,7 +37,6 @@
   height: 100%;
   width: 100%;
   background-color: #efefef;
-  
 }
 
 .abilities {
@@ -51,23 +44,21 @@
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  
 }
 
-.description{
+.description {
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Cambié a 'flex-start' para que no se centre tanto */
-  align-items: center; /* Alineación a la izquierda */
-  gap: 0.5rem; /* Reduje el espacio entre elementos */
-  padding: 0.5rem; /* Ajusté el padding para reducir el espacio */
-  border-radius: 10px; /* Reduje el border-radius */
+  justify-content: center; 
+  align-items: center; 
+  gap: 0.5rem; 
+  padding: 0.5rem; 
+  border-radius: 10px; 
   background-color: #fff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Ajusté el shadow */
-  width: 100%; /* Haciendo que ocupe todo el ancho disponible */
-  /* max-width: 95%; Limité el ancho máximo */
-  
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
+  width: 100%; 
 }
+
 .text_description {
   text-align: center; 
   width: 100%; 
@@ -77,45 +68,22 @@
   color: #ff0202d2;
 }
 
-/* @media (max-width: 768px) {
-  .about {
-    flex-direction: column;
-  }
 
-  .features {
-    gap: 0.5rem;
-    font-size: 0.9rem;
-  }
-
-  .info {
-    font-size: 0.9rem;
-  }
-
-  .abilities {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-} */
-
-
-/* Media Query: Para pantallas medianas (1024px a 768px) */
 @media (max-width: 1024px) {
   .about {
-    grid-template-columns: 1fr 1fr; /* Cambiar a 2 columnas */
+    grid-template-columns: 1fr 1fr; 
   }
 
   .about .features:nth-child(3) {
-    grid-column: 1 / -1; /* El tercer elemento ocupa toda la fila */
+    grid-column: 1 / -1; 
   }
 }
 
-/* Media Query: Para pantallas pequeñas (768px o menos) */
 @media (max-width: 768px) {
   .about {
-    grid-template-columns: 1fr; /* Cambiar a 1 columna */
+    grid-template-columns: 1fr; 
   }
 
-  /* Los elementos ocuparán toda la fila (100%) */
   .about .features {
     grid-column: 1 / -1;
   }

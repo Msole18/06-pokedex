@@ -1,12 +1,15 @@
 import { useState } from "react";
 
+import {
+  MINIMUM_POKEMONS_FOR_LOAD_MORE,
+  MAXIMUM_POKEMONS_FOR_LOAD_MORE,
+} from '../context/PokemonsContext';
 
 export function useValidation() {
   const [inputError, setInputError] = useState('');
 
   // Input Validation Control
   const inputHeaderValidation = (inputValue) => {
-    console.log('inputHeaderValidation: ', inputValue)
     if (inputValue === '') {
       setInputError('');
       return true;
@@ -20,15 +23,15 @@ export function useValidation() {
     const numberRegex = /^[0-9]+$/;
     if (numberRegex.test(inputValue)) {
       const numberValue = parseInt(inputValue, 10);
-      if (numberValue < 1 || numberValue > 1000) {
-        setInputError('Only numbers between 1 and 1000 can be entered.');
+      if (numberValue < MINIMUM_POKEMONS_FOR_LOAD_MORE || numberValue > MAXIMUM_POKEMONS_FOR_LOAD_MORE) {
+        setInputError(`Values must be between ${MINIMUM_POKEMONS_FOR_LOAD_MORE} and ${MAXIMUM_POKEMONS_FOR_LOAD_MORE}.`);
         return false;
       }
     }
 
     const letterAndDashRegex = /^[a-zA-Z0-9\s]+$/;
     if (!letterAndDashRegex.test(inputValue)) {
-      setInputError('Only letters without special characters or punctuation marks are allowed.');
+      setInputError(`Only letters without special characters or punctuation marks are allowed.`);
       return false;
     }
 
@@ -42,8 +45,8 @@ export function useValidation() {
       return false;
     }
 
-    if (offset < 1 || offset > 1000 || limit < 1 || limit > 1000) {
-      setInputError('Values must be between 1 and 1000.');
+    if (offset < MINIMUM_POKEMONS_FOR_LOAD_MORE || offset > MAXIMUM_POKEMONS_FOR_LOAD_MORE || limit < MINIMUM_POKEMONS_FOR_LOAD_MORE || limit > MAXIMUM_POKEMONS_FOR_LOAD_MORE) {
+      setInputError(`Values must be between ${MINIMUM_POKEMONS_FOR_LOAD_MORE} and ${MAXIMUM_POKEMONS_FOR_LOAD_MORE}.`);
       return false;
     }
 

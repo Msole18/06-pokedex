@@ -1,15 +1,15 @@
 import classes from './PokemonsList.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAnglesDown } from '@fortawesome/free-solid-svg-icons';
-import { PokemonCard } from './PokemonCard';
+import { PokemonsContext } from '../context/PokemonsContext';
 import { NoPokemonsResults } from './NoPokemonsResults';
+import { PokemonCard } from './PokemonCard';
+import { Card } from './UI/Card';
 import { Button } from './UI/Button';
 import { Loader } from './UI/Loader';
 import { SortSelection } from './UI/SortSelection';
-import { PokemonsContext } from '../context/PokemonsContext';
-import { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { Card } from './UI/Card';
+import { useContext } from 'react';
 
 function ListOfPokemons({ pokemons }) {
   return (
@@ -32,14 +32,19 @@ export function PokemonsLists() {
   const {
     sortedPokemons,
     setSortSelection,
-    errorFetch,
+    fetchError,
     loading,
     handleLoadMore,
-    MINIMUM_POKEMONS_FOR_LOAD_MORE,
-
+    MAXIMUM_POKEMONS_FOR_LOAD_MORE,
   } = useContext(PokemonsContext);
 
   const hasPokemons = sortedPokemons?.length > 0;
+
+  // Get the ID of the last loaded Pokémon
+  const lastPokemonId = sortedPokemons.length > 0 ? sortedPokemons[sortedPokemons.length - 1].id : 0;
+
+  // Check if the last Pokémon ID is less than MAXIMUM_POKEMONS_FOR_LOAD_MORE
+  const canLoadMoreButton = lastPokemonId < MAXIMUM_POKEMONS_FOR_LOAD_MORE;
 
   const handleChange = (event) => {
     const newSort = event.target.value;
@@ -51,63 +56,33 @@ export function PokemonsLists() {
       <div className={classes.sort_selection} >
         <SortSelection onChange={handleChange} />
       </div>
-      <main className={classes.main} >
+      <main className={classes.main}>
         
-        {/* Mostrar cargador mientras se carga */}
-        {loading && <Loader className={classes.loader} />}
-
-        {/* Mostrar mensaje de error si hay un error en la carga */}
-        {!loading && errorFetch && <h2>{errorFetch}</h2>}
-
-        {/* Mostrar mensaje si no hay pokémons después de cargar y no hay error */}
-        {!loading && !hasPokemons && errorFetch && <NoPokemonsResults errorFetch={ errorFetch }/>}
-
-        {/* Mostrar la lista de pokémons si hay pokémons */}
-        {!loading && hasPokemons && (
-          <>
-            <ListOfPokemons pokemons={sortedPokemons} />
-            {sortedPokemons.length >= MINIMUM_POKEMONS_FOR_LOAD_MORE && (
-              <Card className={classes.button_card}>
-                <Button
-                  onClick={handleLoadMore}
-                  title={'Load More Pokemons'}
-                  className={classes.button}
-                >
-                  Load more
-                  <FontAwesomeIcon icon={faAnglesDown} />
-                </Button>
-              </Card>
-            )}
-          </>
+        {
+          fetchError 
+            ? (<NoPokemonsResults fetchError={fetchError} />)
+            : hasPokemons < 1 && loading 
+              ? (<div className={classes.loader_container}>
+                <Loader/>
+              </div>)
+                : (hasPokemons >= 1
+                    ? (<ListOfPokemons pokemons={sortedPokemons} />) 
+                    : null
+                  )
+        }
+        {canLoadMoreButton && !loading && (
+          <Card className={classes.button_card}>
+            <Button
+              onClick={handleLoadMore}
+              title={'Load More Pokemons'}
+              className={classes.button}
+            >
+              Load more
+              <FontAwesomeIcon icon={faAnglesDown} />
+            </Button>
+          </Card>
         )}
-
       </main>
     </>
   )   
 }
-
-// {
-//   hasPokemons < 1 && loading
-//   ? <Loader className={classes.loader} />
-//   : (
-//     hasPokemons ? (
-//       <>
-//         <ListOfPokemons pokemons={sortedPokemons} />
-//       </>
-//     ) : null
-//   )
-// }
-// {
-//   sortedPokemons?.length >= MINIMUM_POKEMONS_FOR_LOAD_MORE && !loading ? (
-//     <Card className={classes.button_card}>
-//       <Button
-//         onClick={handleLoadMore}
-//         title={'Load More Pokemons'}
-//         className={classes.button}
-//       >
-//         Load more
-//         <FontAwesomeIcon icon={faAnglesDown} />
-//       </Button>
-//     </Card>
-//   ) : null
-// }

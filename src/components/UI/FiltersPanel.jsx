@@ -52,7 +52,7 @@ export function FiltersPanel({ setFiltersHeight }) {
         className={classes.button_container}
         onClick={handleClick}
         title={!isHomePage ? 'Advanced Search' : null}
-        disabled={!isHomePage} // Disable the button if not on the Home page
+        disabled={!isHomePage} 
       >
         {isHomePage && (
           <FontAwesomeIcon icon={filter ? faAnglesUp : faAnglesDown } /> 

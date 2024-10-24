@@ -3,23 +3,16 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 0 auto;
-  margin-bottom: 1rem;
+  margin: 0 auto 1rem;
   width: 90%;
 }
 
 .evolution_chain {
   display: grid;
-  grid-template-columns: repeat(
-    auto-fit, minmax(
-      100px, 
-      1fr
-    )
-  );
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   gap: 1rem;
   margin: 1rem;
   width: 100%;
-  max-width: 100%; 
 }
 
 .evolution_item {
@@ -41,7 +34,6 @@
   width: 150px;
   height: 150px;
 }
-
 
 .pokemon_image {
   aspect-ratio: 4/3;
@@ -65,12 +57,12 @@
   color: inherit; 
 }
 
+/* Media Queries */
 @media (max-width: 768px) {
   .evolution_chain {
-    
     grid-template-columns: 1fr; 
-  
   }
+
   .arrow {
     font-size: 40px;
   }

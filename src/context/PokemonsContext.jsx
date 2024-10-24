@@ -3,13 +3,15 @@ import { useFetchPokemon } from '../hooks/useFechtPokemon';
 import { useSort } from '../hooks/useSort';
 import { useLocation } from 'react-router-dom';
 
+export const MINIMUM_POKEMONS_FOR_LOAD_MORE = 1;
+export const MAXIMUM_POKEMONS_FOR_LOAD_MORE = 1000;
+export const NUMBER_OF_POKEMONS_FOR_LOAD_MORE = 18;
 
 export const PokemonsContext = createContext();
 
 export function PokemonsProvider({ children }) {
-  const MINIMUM_POKEMONS_FOR_LOAD_MORE = 18;
   const [search, setSearch] = useState('');
-  const [limit, setLimit] = useState(18);
+  const [limit, setLimit] = useState(NUMBER_OF_POKEMONS_FOR_LOAD_MORE);
   const [offset, setOffset] = useState(0);
   const [selectedTypes, setSelectedTypes] = useState([]);
   const [filtersHeight, setFiltersHeight] = useState(0);
@@ -29,6 +31,7 @@ export function PokemonsProvider({ children }) {
     setTypes,
     loading,
     fetchError,
+    setFetchError
   } = useFetchPokemon({ search, limit, offset });
 
   const filteredTypes = mappedPokemons.filter((pokemon) =>
@@ -44,8 +47,6 @@ export function PokemonsProvider({ children }) {
             pokemon.id.toString().includes(search)
         )
       : mappedPokemons;
-  console.log('filteredPokemon', filteredPokemon);
-
  
   const hasFilteredTypes = selectedTypes.length > 0;
 
@@ -53,22 +54,37 @@ export function PokemonsProvider({ children }) {
 
   // Sort Pokemons
   const { sortedPokemons, setSortSelection } = useSort(finalPokemons);
-  // console.log('sortedPokemons: ', sortedPokemons);
+ 
 
   // Load More Click
   const handleLoadMore = () => {
-    setOffset((prevOffset) => prevOffset + MINIMUM_POKEMONS_FOR_LOAD_MORE);
+    setOffset((prevOffset) => {
+      // Get the ID of the last loaded Pokémon
+      const lastPokemonId = finalPokemons.length > 0 ? finalPokemons[finalPokemons.length - 1].id : 0;
+
+      // Calculate how many Pokémon can be loaded without exceeding the maximum ID allowed (MAXIMUM_POKEMONS_FOR_LOAD_MORE).
+      const remainingPokemonsToMax = MAXIMUM_POKEMONS_FOR_LOAD_MORE - lastPokemonId;
+
+      // Determine how many Pokémon will be loaded, respecting the maximum limit.
+      const numberOfPokemonsToLoad = Math.min(NUMBER_OF_POKEMONS_FOR_LOAD_MORE, remainingPokemonsToMax);
+
+      // Increase offset
+      const newOffset = prevOffset + numberOfPokemonsToLoad;
+
+      // Ensure that we do not exceed the maximum allowance
+      return newOffset <= MAXIMUM_POKEMONS_FOR_LOAD_MORE ? newOffset : prevOffset;
+    });
   };
 
   const resetApp = () => {
-    console.log('resetApp: ');
     setSearch('');
     setLimit(18);
     setOffset(0);
     setSelectedTypes([]);
     setResponsePokemons([]);
-    getPokemons(limit, offset, true);
- 
+    setFetchError(null)
+
+    getPokemons(18, 0, true);
   };
 
   return (
@@ -81,6 +97,7 @@ export function PokemonsProvider({ children }) {
         setSelectedTypes,
         handleLoadMore,
         MINIMUM_POKEMONS_FOR_LOAD_MORE,
+        MAXIMUM_POKEMONS_FOR_LOAD_MORE,
         // useFetchPokemon
         responsePokemons,
         setResponsePokemons,

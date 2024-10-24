@@ -37,7 +37,6 @@
   left: 50%; 
   transform: translate(-50%, -50%);  
   z-index: 1; 
-  background-color: #fff;
   border-radius: 50% ;
   height: 60px;
   width: 60px;
@@ -55,10 +54,8 @@
 }
 
 
-@media (width <= 900px) {
-  .search_container{
-    height: '35px'
-  }
+@media (width <= 1050px)  {
+
   .button_container {
     height: 55px;
     width: 55px;
@@ -72,19 +69,18 @@
 }
 
 @media (width <= 768px) {
-  .search_container{
-    height: '10px'
-  }
+
   .button_container {
     height: 50px;
     width: 50px;
-    box-shadow: 0 0 0 20px black;
+    box-shadow: 0 0 0 25px black;
   }
 
   .button_container:focus {
-    box-shadow: 0 0 0 20px black;
+    box-shadow: 0 0 0 25px black;
   }
 
 } 
+
 
 

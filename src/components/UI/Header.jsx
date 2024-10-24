@@ -38,9 +38,8 @@ export function Header() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const newSearch = event.target.value;
-    if (inputHeaderValidation(newSearch)) {
-      setSearch(newSearch)
+
+    if (inputHeaderValidation(search)) {
       getSearchedPokemons({ search });
       if (!isHomePage) navigate('/');
     }
@@ -106,3 +105,4 @@ export function Header() {
     </div>
   );
 }
+

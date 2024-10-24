@@ -18,7 +18,7 @@
   margin: 0 auto;
   margin-bottom: 2rem;
   width: 80%;
-  min-height: calc(100vh - 200px);
+  min-height: calc(120vh - 200px);
 }
 
 .pokemons_list {
@@ -29,10 +29,46 @@
       1fr
     )
   );
-  gap: 1rem;
+  gap: 1.5rem;
   width: 80%;
   align-items: center;
   justify-items: center;
+  padding-bottom: 3rem;
+}
+
+
+.pokemons_list li {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: zoomIn 0.5s ease forwards;
+}
+
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.5); /* Escala pequeña */
+  }
+  to {
+    opacity: 1;
+    transform: scale(1); /* Escala normal */
+  }
+}
+
+.pokemons_list li:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.pokemons_list li:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.pokemons_list li:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.pokemons_list li:nth-child(4) {
+  animation-delay: 0.4s;
+}
+.pokemons_list li:nth-child(5) {
+  animation-delay: 0.5s;
 }
 
 .button_card {
@@ -45,10 +81,16 @@
   height: max-content;
 }
 
-.loader {
-  position: absolute;  
-  left: 48.5%;
-  top: 55%;
+.loader_container {
+  position: fixed;  
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+   z-index: 1000;  
 }
 
 .link {
@@ -56,12 +98,32 @@
   color: inherit; 
 }
 
+@media (width <= 1050px ) {
+  .sort_selection {
+    align-items:flex-end;
+    min-width: 30%;
+    margin-top: 200px;
+  }
+
+}
+
 @media (width <= 768px ) {
   .sort_selection {
     align-items:flex-end;
-    width: 95%;
+    width: 95%; 
+    margin-top: 250px;
+  }
+
+  .main {
+    width: 95%; 
     min-width: 30%;
-    padding-right: 1rem;
+  }
+}
+
+@media (width <= 480px ) {
+  .sort_selection {
+    align-items: end;
+    width: 95%; 
     margin-top: 260px;
   }
 

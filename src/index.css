@@ -1,46 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
-:root {
-  --background-body: #fff;
-  --background: #efefef;
-  --background-alt: #f7f7f7;
-  --selection: #9e9e9e;
-  --text-main: #363636;
-  --text-bright: #000;
-  --text-muted: #70777f;
-  --links: #0076d1;
-  --focus: #0096bfab;
-  --border: #dbdbdb;
-  --code: #000;
-  --animation-duration: 0.1s;
-  --button-base: #d0cfcf;
-  --button-hover: #9b9b9b;
-  --form-placeholder: #949494;
-  --form-text: #1d1d1d;
-  --variable: #39a33c;
-  --highlight: #ff0;
-  --select-arrow: url("data:image/svg+xml;charset=utf-8,%3C?xml version='1.0' encoding='utf-8'?%3E %3Csvg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' height='62.5' width='116.9' fill='%23161f27'%3E %3Cpath d='M115.3,1.6 C113.7,0 111.1,0 109.5,1.6 L58.5,52.7 L7.4,1.6 C5.8,0 3.2,0 1.6,1.6 C0,3.2 0,5.8 1.6,7.4 L55.5,61.3 C56.3,62.1 57.3,62.5 58.4,62.5 C59.4,62.5 60.5,62.1 61.3,61.3 L115.2,7.4 C116.9,5.8 116.9,3.2 115.3,1.6Z'/%3E %3C/svg%3E");
-}
-
-
-body {
-  font-family: 'Bebas Neue', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
-  width: 100%;
-  word-wrap: break-word;
-  color: #1d1d1d;
-  text-rendering: optimizeLegibility;
-  background-color: #efefef; 
-  background: rgb(213,213,221);
-  background: linear-gradient(90deg, rgba(213,213,221,1) 0%, rgba(251,249,249,1) 51%, rgba(213,213,221,1) 100%);
-  min-width: 300px;
-}
-
-
 * {
     box-sizing: border-box;
     padding: 0;
     margin: 0;
-    /* user-select: none; */
+}
+
+body {
+  font-family: 'Bebas Neue', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
+  /* width: 100%; */
+  word-wrap: break-word;
+  color: #1d1d1d;
+  text-rendering: optimizeLegibility;
+  background: linear-gradient(90deg, rgba(213,213,221,1) 0%, rgba(251,249,249,1) 51%, rgba(213,213,221,1) 100%);
+  min-width: 300px;
+}
+
+ul, li {
+  list-style: none;
 }
 
 .app {
@@ -50,8 +27,4 @@ body {
   align-items: center;
   min-width: 300px;
   max-height: fit-content;
-}
-
-ul, li {
-  list-style: none;
 }
