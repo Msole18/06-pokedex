@@ -3,6 +3,7 @@
   flex-direction: column;
   justify-content: center;
   position: relative;
+  animation: slideDown 1s ease forwards;  
 }
 
  .search_container {
@@ -11,7 +12,18 @@
   align-content: center;
   width: 100%;
   background-color: #000000;
-  overflow: visible;
+  overflow: hidden;
+  height: 0; 
+ }
+
+.show {
+  height: auto;
+  opacity: 1;
+}
+
+.hide {
+  max-height: 0;
+  opacity: 0;
 }
 
 .filters_container {
@@ -23,10 +35,21 @@
   width: 100%;
   height: auto;
   overflow: hidden;
-  background-color: #0f0f0fd8;
   box-shadow: inset 0 0 60px 10px rgba(72, 135, 202, 0.8); 
-  overflow: visible; 
   min-height: max-content;
+  padding-top: 1rem;
+} 
+
+@keyframes slideDown {
+  0% {
+	transform: scaleY(0.4);
+	transform-origin: 100% 0%;
+  }
+
+  100% {
+	transform: scaleY(1);
+	transform-origin: 100% 0%;
+  }
 }
 
 .button_container {

@@ -1,4 +1,4 @@
-import pokeLogo from '../../assets/pokemon-logo.png';
+import pokeLogo from '../../assets/pokemon-logo.webp';
 import classes from './Header.module.css';
 import { Button } from './Button';
 import { FiltersPanel } from './FiltersPanel';

@@ -1,5 +1,5 @@
 import classes from './PokemonsFilters.module.css';
-import advancedSearch from '../assets/advanced-search.png';
+import advancedSearch from '../assets/advanced-search.webp';
 import { MINIMUM_POKEMONS_FOR_LOAD_MORE, MAXIMUM_POKEMONS_FOR_LOAD_MORE } from '../constants.jsx';
 import { Button } from './UI/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -198,7 +198,7 @@ export function PokemonsFilters() {
   };
 
   return (
-    <>
+    <div className={classes.container}>
       <img
         className={classes.title}
         src={advancedSearch}
@@ -225,6 +225,6 @@ export function PokemonsFilters() {
           <SubmitFiltersButtons handleReset={handleReset} />
         </div>
       </form>
-    </>
+    </div>
   );
 }

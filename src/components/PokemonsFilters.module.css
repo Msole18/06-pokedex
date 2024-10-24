@@ -1,4 +1,14 @@
- .title {
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  animation: slideDown 1s ease forwards;  
+}
+
+.title {
   width: 220px;
 }
 
@@ -55,7 +65,20 @@
   width: 100%;
   cursor: pointer;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  opacity: 0;
+  transform: scale(0.8); 
+  animation: fadeInGrow 1s ease-out 0.5s forwards; 
 }
+
+.pokemons_type:nth-child(1) { animation-delay: 0.1s; }
+.pokemons_type:nth-child(2) { animation-delay: 0.2s; }
+.pokemons_type:nth-child(3) { animation-delay: 0.3s; }
+.pokemons_type:nth-child(4) { animation-delay: 0.4s; }
+.pokemons_type:nth-child(5) { animation-delay: 0.5s; }
+.pokemons_type:nth-child(6) { animation-delay: 0.6s; }
+.pokemons_type:nth-child(7) { animation-delay: 0.7s; }
+.pokemons_type:nth-child(8) { animation-delay: 0.8s; }
+.pokemons_type:nth-child(9) { animation-delay: 0.9s; }
 
 .pokemons_type:hover {
   background-color: #0e0d0d;
@@ -152,6 +175,29 @@
   height: 100%;
   width: auto;
 }
+
+@keyframes slideDown {
+  0% {
+	transform: scaleY(0.4);
+	transform-origin: 100% 0%;
+  }
+
+  100% {
+	transform: scaleY(1);
+	transform-origin: 100% 0%;
+  }
+}
+
+@keyframes fadeInGrow {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+} 
 
 @media (1200px >= width >= 300px) {
   .form {

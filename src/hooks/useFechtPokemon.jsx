@@ -18,7 +18,7 @@ export const useFetchPokemon = ({ search, limit, offset}) => {
   const previousOffset = useRef({ offset });
   const previousEvoChain = useRef([]);
 
-  const getPokemonsTypes = () => {
+  const getPokemonsTypes = useCallback(() => {
     setLoading(true);
     setFetchError(null);
     previousSearch.current = search;
@@ -35,7 +35,7 @@ export const useFetchPokemon = ({ search, limit, offset}) => {
       .finally(() => {
         setLoading(false);
       });
-  };
+  }, []);
 
   const getPokemons = useCallback(
     (limit = NUMBER_OF_POKEMONS_FOR_LOAD_MORE, offset = 0, forceReload = false) => {

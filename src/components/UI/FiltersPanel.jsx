@@ -31,18 +31,18 @@ export function FiltersPanel({ setFiltersHeight }) {
 
   return (
     <div className={classes.container}>
-      {filter && (
-        <section
-          className={classes.search_container}
-          style={{ minHeight: 'max-content' }}
-          ref={searchContainerRef}
-        >
-          <div className={classes.filters_container}>
-            <PokemonsFilters />
-          </div>
-        </section>
-      )}
-
+      {
+        filter && (
+          <section
+            className={`${classes.search_container} ${filter ? classes.show : classes.hide}`}
+            ref={searchContainerRef}
+          >
+            <div className={`${classes.filters_container}`} >
+              <PokemonsFilters />
+            </div>
+          </section>
+        )
+      }
       <section
         className={classes.search_container}
         style={{ height: '40px' }}
