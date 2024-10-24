@@ -1,9 +1,5 @@
+import { MINIMUM_POKEMONS_FOR_LOAD_MORE, MAXIMUM_POKEMONS_FOR_LOAD_MORE } from '../constants.jsx';
 import { useState } from "react";
-
-import {
-  MINIMUM_POKEMONS_FOR_LOAD_MORE,
-  MAXIMUM_POKEMONS_FOR_LOAD_MORE,
-} from '../context/PokemonsContext';
 
 export function useValidation() {
   const [inputError, setInputError] = useState('');
@@ -56,7 +52,7 @@ export function useValidation() {
     }
 
     setInputError('');
-    return true; // No errors
+    return true; 
   };
   return {
     inputError,

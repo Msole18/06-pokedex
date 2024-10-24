@@ -1,4 +1,5 @@
 import classes from './PokemonsList.module.css';
+import { MAXIMUM_POKEMONS_FOR_LOAD_MORE } from '../constants.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAnglesDown } from '@fortawesome/free-solid-svg-icons';
 import { PokemonsContext } from '../context/PokemonsContext';
@@ -35,7 +36,6 @@ export function PokemonsLists() {
     fetchError,
     loading,
     handleLoadMore,
-    MAXIMUM_POKEMONS_FOR_LOAD_MORE,
   } = useContext(PokemonsContext);
 
   const hasPokemons = sortedPokemons?.length > 0;

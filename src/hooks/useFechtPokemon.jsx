@@ -1,4 +1,4 @@
-import { NUMBER_OF_POKEMONS_FOR_LOAD_MORE } from '../context/PokemonsContext'
+import { NUMBER_OF_POKEMONS_FOR_LOAD_MORE } from '../constants.jsx';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 const POKEMONS_TYPES_ENDPOINT = `https://pokeapi.co/api/v2/type/`;

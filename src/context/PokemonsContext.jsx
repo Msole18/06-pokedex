@@ -1,11 +1,10 @@
+import { MINIMUM_POKEMONS_FOR_LOAD_MORE, MAXIMUM_POKEMONS_FOR_LOAD_MORE, NUMBER_OF_POKEMONS_FOR_LOAD_MORE} from '../constants.jsx';
 import { createContext, useState } from 'react';
 import { useFetchPokemon } from '../hooks/useFechtPokemon';
 import { useSort } from '../hooks/useSort';
 import { useLocation } from 'react-router-dom';
 
-export const MINIMUM_POKEMONS_FOR_LOAD_MORE = 1;
-export const MAXIMUM_POKEMONS_FOR_LOAD_MORE = 1000;
-export const NUMBER_OF_POKEMONS_FOR_LOAD_MORE = 18;
+
 
 export const PokemonsContext = createContext();
 

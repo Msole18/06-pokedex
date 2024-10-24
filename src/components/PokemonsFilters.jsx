@@ -1,5 +1,6 @@
 import classes from './PokemonsFilters.module.css';
 import advancedSearch from '../assets/advanced-search.png';
+import { MINIMUM_POKEMONS_FOR_LOAD_MORE, MAXIMUM_POKEMONS_FOR_LOAD_MORE } from '../constants.jsx';
 import { Button } from './UI/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
@@ -51,7 +52,7 @@ const SequencesFilter = ({ previousOffset, previousLimit, inputError, handleInpu
             className={classes.input}
             ref={previousOffset}
             value={offsetValue}
-            placeholder='1'
+            placeholder={MINIMUM_POKEMONS_FOR_LOAD_MORE}
             name='offsetInput'
             onChange={(e) => handleInputChange(e, 'offset')}
           />
@@ -192,7 +193,7 @@ export function PokemonsFilters() {
     setSelectedTypes([]);
     setOffsetValue('');  
     setLimitValue(''); 
-    previousOffset.current = 1; 
+    previousOffset.current = MINIMUM_POKEMONS_FOR_LOAD_MORE; 
     previousLimit.current = MAXIMUM_POKEMONS_FOR_LOAD_MORE; 
   };
 

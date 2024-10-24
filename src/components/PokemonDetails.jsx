@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import classes from './PokemonDetails.module.css';
+import { MINIMUM_POKEMONS_FOR_LOAD_MORE, MAXIMUM_POKEMONS_FOR_LOAD_MORE } from '../constants.jsx';
 import { Loader } from './UI/Loader';
 import { PokemonCard } from './PokemonCard';
 import { Card } from './UI/Card';
@@ -21,7 +22,6 @@ export function PokemonDetails({ pokemonId }) {
     getEvolutionChain,
     sortedPokemons,
     loadingEvolutions,
-    MAXIMUM_POKEMONS_FOR_LOAD_MORE,
   } = useContext(PokemonsContext);
 
   const pokemon = sortedPokemons.find(
@@ -53,7 +53,7 @@ export function PokemonDetails({ pokemonId }) {
 
             <section className={classes.pokemon_section}>
               <div className={classes.column_grid}>
-                {pokemon.id > 1 ? (
+                {pokemon.id > MINIMUM_POKEMONS_FOR_LOAD_MORE ? (
                   <Link
                     className={classes.link}
                     to={`/pokemon/${pokemon.id - 1}`}
